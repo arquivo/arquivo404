@@ -47,7 +47,12 @@
 				xhttp.open("GET", cdxAPIEndpoint, true);
 				xhttp.send();
 			}
-			getArquivoLatestVersionOfSite("http://www.fccn.pt", function(arquivoptSiteURL, timestamp) {
+			
+			// if requesting a 404 HTTP Status and URL requested is maintained then windows.location function.
+			//var url = window.location;
+			// else write an url to be searched on Arquivo.pt.
+			var url = "http://www.fccn.pt";
+			getArquivoLatestVersionOfSite(url, function(arquivoptSiteURL, timestamp) {
 				console.log(arquivoptSiteURL);
 				if (!!arquivoptSiteURL) {
 					var onArquivoElement = document.getElementById("onArquivo");
