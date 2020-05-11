@@ -17,20 +17,22 @@
 				// ideally make this params configurable
 				var server = "https://arquivo.pt";
 				//var server = "http://wayback.archive-it.org";
-				var path = "/wayback/cdx"
+				var path = "/wayback/cdx";
+				
+				var url = encodeURIComponent(site);
 				//var path = "/all/timemap/cdx"
-				var params = "?fields=timestamp&limit=1&sort=closest&closest=*&url=" + site;
+				var params = "?output=json&filter=!~status:4|5&fields=timestamp&limit=1&sort=closest&closest=*&url=" + url;
 				var cdxAPIEndpoint = server + path + params;
 				var waybackReplayURL = server + "/wayback/";
 
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
 				    if (this.readyState == 4 && this.status == 200) {
-				    	var responseCDX = this.responseText.replace('\n','')
-				    	var hasAnyRecord = responseCDX.length
+				    	var responseCDXJ = this.responseText.replace('\n','');
+				    	var hasAnyRecord = responseCDXJ.length;
 				    	if (hasAnyRecord) {
-				    		var spaceIdx = responseCDX.indexOf(' ');
-				    		var timestamp = responseCDX.substring(0, spaceIdx);
+				    		var fields = JSON.parse(responseCDXJ);
+				    		var timestamp = fields.timestamp;
 				    		var waybackURL = waybackReplayURL + timestamp + "/" + site;
 				    		var timestampAsDate = new Date(
 				    			timestamp.substring(0,4),
