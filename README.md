@@ -17,17 +17,26 @@ On the place where you want to have the message.
 
 ## Customizations
 
-### Message
+On a new function initialize by calling other methods before.
 
 ```js
 <script type="text/javascript">
-	function start404() {
-		ARQUIVO_NOT_FOUND_404
-			.messages([['pt', '<a href="{archivedURL}">Visite uma versão anterior desta página de {day} {monthLong}, {year}.</a>']])
-			.call();
-	}
+  function start404() {
+    ARQUIVO_NOT_FOUND_404
+      .messages([['pt', '<a href="{archivedURL}">Visite uma versão anterior desta página de {day} {monthLong}, {year}.</a>']])
+      .call();
+  }
 </script>
 <script type="text/javascript" src="arquivo404.js" async defer onload="start404();"></script>
 ```
 
-### Languages
+| Method | Description |
+| -- | -- |
+| messages | Array of other arrays that have two element each |
+| language | Force show message on specific language |
+| message | Only use specific message. |
+| addMessage | Add a language message | 
+| messageContainerId | Element to write the message |
+| addArchive | Add web archive |
+| archive | Add a new web archive and remove default one |
+| url | Change url to searhc on web archives instead of the current one. |
