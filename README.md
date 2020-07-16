@@ -33,7 +33,7 @@ On a new function initialize by calling other methods before.
 | language | Force show message on specific language | language |
 | messageElementId | Id of the element to write the message | messageElementId |
 | addArchive | Add web archive | A prototype with archiveApiUrl, archiveName and timeout or a single URL of the Memento API |
-| archive | Add a new web archive and remove default one | Replace current archive with this one |
+| archive | Add a new web archive and remove default one | Same as previous |
 | url | Change url to searhc on web archives instead of the current one. | Change url to search on web archives instead of the current page. |
 
 ## Web Archive
