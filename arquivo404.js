@@ -8,7 +8,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 
 	var _url = window.location.href;
 	var _handled = false;
-	var _messageContainerId = null;
+	var _messageElementId = null;
 	var _language = navigator.language || navigator.userLanguage;
 
 	var _messagesMap = new Map([ 
@@ -24,8 +24,8 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 	];
 
 	function handleMessage(message) {
-		if (!!_messageContainerId) {
-			document.getElementById(_messageContainerId).innerHTML = message;
+		if (!!_messageElementId) {
+			document.getElementById(_messageElementId).innerHTML = message;
 		} else {
 			document.write(message);
 		}
@@ -119,7 +119,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 
 	return {
 
-		// Replace all the messages on a single method.
+		// Array of other arrays that have two element each
 		// Example:
 		//   .messages([
 		//         ['pt', '<a href="{archivedURL}">Visite uma versão anterior desta página de {day} {monthLong}, {year} no {archiveName}.</a>'],
@@ -130,7 +130,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 			return this;
 		},
 
-		// Change default language.
+		// Force show message on specific language
 		language : function(language) {
 			_language = language;
 			return this;
@@ -151,13 +151,13 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 			_messagesMap.set(language, message);
 		},
 
-		// Put the message on a specific element
-		messageContainerId : function(messageContainerId) {
-			_messageContainerId = messageContainerId;
+		// Id of the element to write the message
+		messageElementId : function(messageElementId) {
+			_messageElementId = messageElementId;
 			return this;
 		},
 
-		// Append a new archive to search.
+		// A prototype with archiveApiUrl, archiveName and timeout or a single URL of the Memento API
 		// Example:
 		//   .addArchive( {timeout: 2000, archiveName: "Arquivo.pt Preprod", archiveApiUrl: "https://preprod.arquivo.pt/wayback/timemap/link/"} )
 		addArchive : function(archive) {
@@ -167,13 +167,14 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 			return this;
 		},
 
+		// Replace current archive with this one
 		archive : function(archive) {
 			_archives = [];
 			this.addArchive(archive);
 			return this;
 		},
 
-		// Change url to searhc on web archives instead of the current one.
+		// Change url to search on web archives instead of the current page.
 		url : function(url) {
 			_url = url;
 			return this;
