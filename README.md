@@ -1,10 +1,11 @@
-# Web archive not found 404 fallback
+# Soft 404 linker to Arquivo.pt
 
-Web archive not found HTTP status 404 ECMAScript handler that uses Memento API (rfc 7089).
+Script that adds a link to Arquivo.pt if the page URL is archived on portuguese web archive (Arquivo.pt).
+It uses the Memento API (rfc 7089) of the web archive to search the lastest available memento and adds a link to it if exists.
 
 ## Use 
 
-On the place where you want to have the message.
+The simplest use case is to add a script where we want to add the link (message) to the archived page.
 ```js
 <script type="text/javascript" src="arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
 ```
@@ -28,17 +29,16 @@ On a new function initialize by calling other methods before.
 | -- | -- | -- |
 | message | Only use a specific message. | message |
 | addMessage | Add a language message | language, message | 
-| messages | Array of other arrays that have two element each | Array of pairs language-message, eg. [['pt','Message in PT'],['en','Message in EN']]
+| messages | Array of other arrays that have two element each | Array of pairs language-message, eg. `[['pt','Message in PT'],['en','Message in EN']]`
 | language | Force show message on specific language | language |
 | messageElementId | Id of the element to write the message | messageElementId |
 | addArchive | Add web archive | A prototype with archiveApiUrl, archiveName and timeout or a single URL of the Memento API |
 | archive | Add a new web archive and remove default one | Replace current archive with this one |
 | url | Change url to searhc on web archives instead of the current one. | Change url to search on web archives instead of the current page. |
 
-
 ## Web Archive
-By default uses the Arquivo.pt Memento API, but any other could be used, if its CORS allow it configuration.
+By default uses the Arquivo.pt Memento API, but any other could be used, if its CORS allow it.
 
 ## CORS
-Requires that the Memento API have an allowed CORS policy.
-In practive the web archive server should return the response HTTP header: \"Access-Control-Allow-Origin: \*\"
+This javascript requires that the Memento API have an open CORS policy.
+In practive the web archive server should return the response HTTP header: `Access-Control-Allow-Origin: *`
