@@ -12,8 +12,8 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 	var _language = navigator.language || navigator.userLanguage;
 
 	var _messagesMap = new Map([ 
-		['en', 'You can view an archived versions of this page at {year} <a href="{archivedURL}">{archiveName}</a>'],
-		['pt', 'Poder&aacute; ver uma vers&atilde;o arquivada no <a href="{archivedURL}">{archiveName}</a>'] 
+		['en', '<a href="{archivedURL}">View an archived version of the page from {day} {monthLong}, {year} at {archiveName}</a>'],
+		['pt', '<a href="{archivedURL}">Visite uma vers&atild;o anterior desta p&aacute;gina de {day} {monthLong}, {year} no {archiveName}.</a>'] 
 	]);
 
 	// List of archives to try
