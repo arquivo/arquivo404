@@ -1,7 +1,7 @@
 # Soft 404 linker to Arquivo.pt
 
-Script that adds a link to Arquivo.pt if the page URL is archived on portuguese web archive (Arquivo.pt).
-It uses the Memento API (rfc 7089) of the web archive to search the lastest available memento and adds a link to it if exists.
+Script that adds a link to Arquivo.pt wayback if the current page URL is archived.
+It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc7089) to search the lastest available memento and adds a link to it if exists.
 
 ## Use 
 
@@ -37,7 +37,7 @@ On a new function initialize by calling other methods before.
 | url | Change url to searhc on web archives instead of the current one. | Change url to search on web archives instead of the current page. |
 
 ## Web Archive
-By default uses the Arquivo.pt Memento API, but any other could be used, if its CORS allow it.
+By default uses the Arquivo.pt Memento API, but any other could be used, if the CORS of the web archive allow it.
 
 ## CORS
 This javascript requires that the Memento API have an open CORS policy.
