@@ -27,7 +27,22 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 		if (!!_messageElementId) {
 			document.getElementById(_messageElementId).innerHTML = message;
 		} else {
-			document.write(message);
+			var scripts = document.getElementsByTagName('script');
+			var arquivo404ScriptElement;
+			for(var i=0; i<scripts.length; i++) {
+				var elementScript = scripts[i];
+			    if(elementScript.src.endsWith('arquivo404.js')) {
+			    	arquivo404ScriptElement = elementScript;
+			    	break;
+			    }
+			}
+			if (arquivo404ScriptElement != null) {
+				var elementDiv = document.createElement('div');
+		        elementDiv.innerHTML = message;
+		        elementScript.parentNode.appendChild(elementDiv);
+			} else {
+				console.log("Not found arquivo404.js script element. Please define a messageElementId instead.");
+			}
 		}
 	}
 
