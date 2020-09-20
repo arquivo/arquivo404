@@ -164,6 +164,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 		//   .addMessage('pt', 'You can view an archived versions on <a href="{archivedURL}">{archivedURL}</a>');
 		addMessage : function(language, message) {
 			_messagesMap.set(language, message);
+			return this;
 		},
 
 		// Id of the element to write the message
