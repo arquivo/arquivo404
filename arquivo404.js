@@ -63,7 +63,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 
 	function getArchivedURL(mementoLine) {
 		const idxFirstSpace = mementoLine.indexOf(' ');
-		return mementoLine.substring(1, idxFirstSpace-3);
+		return mementoLine.substring(1, idxFirstSpace-2);
 	}
 
 	function getMementoDate(mementoLine) {
