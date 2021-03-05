@@ -3,6 +3,10 @@
 Script that adds a link to Arquivo.pt wayback if the current page URL is archived.
 It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc7089) to search the lastest available memento and adds a link to it if exists.
 
+See it in action:
+* https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
+* https://sobre.arquivo.pt/sobre/publicacoes-1/automatic-identification-and-preservation-of-r-d
+
 ## Use 
 
 The simplest use case is to add a script where we want to add the link (message) to the archived page.
