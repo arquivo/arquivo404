@@ -7,7 +7,7 @@ It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc708
 
 The simplest use case is to add a script where we want to add the link (message) to the archived page.
 ```js
-<script type="text/javascript" src="arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
+<script type="text/javascript" src="//arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
 ```
 
 ## Customizations
@@ -22,7 +22,7 @@ On a new function initialize by calling other methods before.
       .call();
   }
 </script>
-<script type="text/javascript" src="arquivo404.js" async defer onload="start404();"></script>
+<script type="text/javascript" src="//arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
 ```
 
 | Method | Description | Arguments |
