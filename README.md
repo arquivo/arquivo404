@@ -6,6 +6,10 @@ It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc708
 See it in action:
 * https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
 * https://sobre.arquivo.pt/sobre/publicacoes-1/automatic-identification-and-preservation-of-r-d
+* https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/arquitectura/
+* https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/tecnologia/
+* https://sobre.arquivo.pt/en/about/system-functioning/technology/
+* https://sobre.arquivo.pt/en/about/system-functioning/architecture/
 
 ## Use 
 
