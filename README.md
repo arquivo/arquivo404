@@ -18,20 +18,47 @@ The simplest use case is to add a script where we want to add the link (message)
 <script type="text/javascript" src="//arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
 ```
 
-## Customizations
+### Custom message and message placing
 
-On a new function initialize by calling other methods before.
+
+Place an empty div with a specific id (e.g. "arquivo404message") where you want the 404 message to appear:
+
+```html
+<div id="arquivo404message"></div>
+```
+
+Your costumised message will show up there if there is an archived version of the missing page.
+Then you load and initialize the arquivo404 JS code on the footer.
 
 ```js
 <script type="text/javascript">
   function start404() {
     ARQUIVO_NOT_FOUND_404
-      .messages([['pt', '<a href="{archivedURL}">Visite uma versão anterior desta página de {day} {monthLong}, {year}.</a>']])
+      .messageElementId('arquivo404message')
+      // uncomment the following line to test this script 
+      //.url("https://sobre.arquivo.pt/colabore/actividades-de-investigacao-e-desenvolvimento/bolsas-1/bolsas")
+      .addMessage('pt', '<a href="{archivedURL}">Visite uma versão arquivada desta página de {day} {monthLong}, {year}.</a>')
+      .addMessage('en', '<a href="{archivedURL}">>Visit an archived version of this page from {day} {monthLong}, {year}.</a>')
       .call();
   }
 </script>
-<script type="text/javascript" src="//arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
+
+<!-- replace https://arquivo.pt/arquivo404.js with your self hosted script  -->
+<script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
+
+...
+</body>
 ```
+
+A minimal functional example is available on 404-page-example.html
+
+## Parameters
+
+
+```js
+
+
+### Custom messages
 
 | Method | Description | Arguments |
 | -- | -- | -- |

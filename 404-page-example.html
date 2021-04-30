@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>404 Page Example</title>
+</head>
+<body>
+
+	<!-- body code -->
+
+
+	<!-- place an empty div with a specific id (e.g. "arquivo404message") where you want the 404 message to show up -->
+	<!-- your costumised message will show up here if there is an archived version of the missing page -->
+	<div id="arquivo404message"></div>
+
+	<!-- more body code -->
+
+	<footer>
+
+		<!-- your other footer code -->
+
+		<!-- you can place -->
+		<script type="text/javascript">
+			function start404() {
+				ARQUIVO_NOT_FOUND_404
+					.messageElementId('arquivo404message')
+					// uncomment the following line to test this script 
+					//.url("https://sobre.arquivo.pt/colabore/actividades-de-investigacao-e-desenvolvimento/bolsas-1/bolsas")
+					.addMessage('pt', '<a href="{archivedURL}">Visite uma versão arquivada desta página de {day} {monthLong}, {year}.</a>')
+					.addMessage('en', '<a href="{archivedURL}">>Visit an archived version of this page from {day} {monthLong}, {year}.</a>')
+					.call();
+			}
+		</script>
+
+		<!-- please replace "https://arquivo.pt/arquivo404.js" with your self hosted script  -->
+		<script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
+
+	</footer>
+</body>
+</html>
