@@ -60,7 +60,8 @@ A minimal functional example is available on [404-page-example.html](404-page-ex
 ## Parameters
 
 Parameters can be passed to arquivo404 by calling the following functions with the desired parameters:
-```ARQUIVO_NOT_FOUND_404
+```
+ARQUIVO_NOT_FOUND_404
   .messageElementId('arquivo404message')
   .addMessage('pt', '<a href="{archivedURL}">Visite uma versão arquivada desta página de {day} {monthLong}, {year}.</a>')
   .call()
