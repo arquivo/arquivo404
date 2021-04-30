@@ -43,7 +43,7 @@ Then you load and initialize the arquivo404 JS code on the footer.
       // uncomment the following line to test this script 
       //.url("https://sobre.arquivo.pt/colabore/actividades-de-investigacao-e-desenvolvimento/bolsas-1/bolsas")
       .addMessage('pt', '<a href="{archivedURL}">Visite uma versão arquivada desta página de {day} {monthLong}, {year}.</a>')
-      .addMessage('en', '<a href="{archivedURL}">>Visit an archived version of this page from {day} {monthLong}, {year}.</a>')
+      .addMessage('en', '<a href="{archivedURL}">Visit an archived version of this page from {day} {monthLong}, {year}.</a>')
       .call();
   }
 </script>
