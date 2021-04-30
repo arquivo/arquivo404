@@ -10,10 +10,15 @@ See it in action:
 * https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/tecnologia/
 * https://sobre.arquivo.pt/en/about/system-functioning/technology/
 * https://sobre.arquivo.pt/en/about/system-functioning/architecture/
+* https://andremourao.com/courses
 
-## Use 
+## Usage
 
-The simplest use case is to add a script where we want to add the link (message) to the archived page.
+### One-liner
+
+The simplest use case is to add the script in the HTML section where you want the link and message to the archived page.
+The script will then show the link to the archive if there is an archived version of the missing page.
+
 ```js
 <script type="text/javascript" src="//arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
 ```
@@ -27,7 +32,7 @@ Place an empty div with a specific id (e.g. "arquivo404message") where you want 
 <div id="arquivo404message"></div>
 ```
 
-Your costumised message will show up there if there is an archived version of the missing page.
+Your customized message will show up there if there is an archived version of the missing page.
 Then you load and initialize the arquivo404 JS code on the footer.
 
 ```js
@@ -50,15 +55,16 @@ Then you load and initialize the arquivo404 JS code on the footer.
 </body>
 ```
 
-A minimal functional example is available on 404-page-example.html
+A minimal functional example is available on [404-page-example.html](404-page-example.html)
 
 ## Parameters
 
-
-```js
-
-
-### Custom messages
+Parameters can be passed to arquivo404 by calling the following functions with the desired parameters:
+```ARQUIVO_NOT_FOUND_404
+  .messageElementId('arquivo404message')
+  .addMessage('pt', '<a href="{archivedURL}">Visite uma versão arquivada desta página de {day} {monthLong}, {year}.</a>')
+  .call()
+```
 
 | Method | Description | Arguments |
 | -- | -- | -- |
