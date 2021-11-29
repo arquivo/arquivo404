@@ -93,13 +93,12 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 
 	function handleMemento(archive, pageUrl, mementoResponse) {
 		if (!_handled) {
-			var mementoLines = mementoResponse.split(/\r?\n/);
+			var mementoLines = mementoResponse.split(/\r?\n/).filter(function(l){ return l.indexOf('rel="memento"') >= 0});
 			const linesCount = mementoLines.length;
-			if (linesCount >= 2) {
-				const lastMemento = mementoLines[linesCount-2];
-
-				const archivedURL = getArchivedURL(lastMemento)
-				const date = getMementoDate(lastMemento)
+			if (linesCount) {
+				const firstMemento = mementoLines[0];
+				const archivedURL = getArchivedURL(firstMemento)
+				const date = getMementoDate(firstMemento)
 
 				if (!_handled) {
 					_handled = true;
