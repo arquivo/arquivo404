@@ -7,6 +7,7 @@ See it in action:
 * https://andremourao.com/courses
 * https://ifilnova.pt/
 * https://www.fccn.pt/SCCN/
+* https://webcurator.ddns.net/?p=134
 * https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
 * https://sobre.arquivo.pt/sobre/publicacoes-1/automatic-identification-and-preservation-of-r-d
 * https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/arquitectura/
