@@ -4,15 +4,15 @@ Script that adds a link to Arquivo.pt wayback if the current page URL is archive
 It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc7089) to search the lastest available memento and adds a link to it if exists.
 
 See it in action:
+* https://andremourao.com/courses
+* https://ifilnova.pt/
+* https://www.fccn.pt/SCCN/
 * https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
 * https://sobre.arquivo.pt/sobre/publicacoes-1/automatic-identification-and-preservation-of-r-d
 * https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/arquitectura/
 * https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/tecnologia/
 * https://sobre.arquivo.pt/en/about/system-functioning/technology/
 * https://sobre.arquivo.pt/en/about/system-functioning/architecture/
-* https://andremourao.com/courses
-* https://ifilnova.pt/
-* https://www.fccn.pt/SCCN/
 
 ## Usage
 
