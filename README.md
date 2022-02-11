@@ -3,9 +3,8 @@
 Script that adds a link to Arquivo.pt wayback if the current page URL is archived.
 It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc7089) to search the lastest available memento and adds a link to it if exists.
 
-See it in action:
+Examples of fixed broken links:
 * https://andremourao.com/courses
-* https://ifilnova.pt/
 * https://www.fccn.pt/SCCN/
 * https://webcurator.ddns.net/?p=134
 * https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
