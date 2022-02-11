@@ -3,7 +3,7 @@
 Script that adds a link to Arquivo.pt wayback if the current page URL is archived.
 It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc7089) to search the lastest available memento and adds a link to it if exists.
 
-## Examples of fixed broken links:
+## Examples of fixed broken links
 * https://andremourao.com/courses
 * https://www.fccn.pt/SCCN/
 * https://webcurator.ddns.net/?p=134
