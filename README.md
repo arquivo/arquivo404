@@ -71,12 +71,11 @@ ARQUIVO_NOT_FOUND_404
 
 | Method | Description | Arguments | Example |
 | -- | -- | -- | -- |
-| messageElementId | Id of the element to write the message | messageElementId | `ARQUIVO_NOT_FOUND_404`<br>**`.messageElementId('arquivo404message')`**<br>`.call();` |
-| message | Use this message[\*](#note1) regardless of language. | message | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.message('message for all languages')`**<br>`.call();` |
+| messageElementId | Id of the HTML element to write the message | messageElementId | `ARQUIVO_NOT_FOUND_404`<br>**`.messageElementId('arquivo404message')`**<br>`.call();` |
+| message | Use this message[\*](#note1) regardless of language. | message | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.message('<a href="{archivedURL}">Visite uma versão arquivada desta página de {day} {monthLong}, {year}.</a>')`**<br>`.call();` |
 | addMessage | Add a message[\*](#note1) for a specific language | language, message | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.addMessage('en','english message')`<br>`.addMessage('pt','portuguese message')`**<br>`.call();` |
-| language | Force show message on specific language | language | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>`.addMessage('en','english message')`<br>`.addMessage('pt','portuguese message')`<br>**`.language('pt')`**<br>`.call();` |
-| addArchive | Add web archive using the URL of the Memento API | url |  `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.archive('https://arquivo.pt/wayback/timemap/link/')`<br>**`.call();` |
-| addArchive | Add web archive using an archive prototype[\*\*](#note2) | { <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveApiUrl, <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveName,<br>&nbsp;&nbsp;&nbsp;&nbsp;timeout <br>} | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.archive({`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveApiUrl:'https://arquivo.pt/wayback/timemap/link/',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveName: 'Arquivo.pt',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`timeout: 2000`<br>`})`<br>**`.call();`|
+| addArchive | Add web archive using the URL of the Memento API | url |  `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.addArchive('https://arquivo.pt/wayback/timemap/link/')`<br>**`.call();` |
+| addArchive | Add web archive using an archive prototype[\*\*](#note2) | { <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveApiUrl, <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveName,<br>&nbsp;&nbsp;&nbsp;&nbsp;timeout <br>} | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.addArchive({`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveApiUrl:'https://arquivo.pt/wayback/timemap/link/',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveName: 'Arquivo.pt',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`timeout: 2000`<br>`})`<br>**`.call();`|
 
 #### <a name="note1"></a> \* Message customization with tags
 Messages can use tags between curly brackets to display dynamic information like the archived date, the archived URL or the archive's name. E.g.: <br>
@@ -91,7 +90,7 @@ A comprehensive list of all tags:
 | `month` | The month number (0-11) of the archived page |
 | `monthLong` | The month name (e.g.: March) of the archived page |
 | `day` | The day of the month of the archived page |
-| `hour` | The hour of the erchived page |
+| `hour` | The hour of the archived page |
 | `minute` | The minute of the archived page |
 | `second` | The second of the archived page |
 | `millisecond` | The millisecond of the archived page |
@@ -106,8 +105,6 @@ An archive prototype is an object with three properties:
 | `archiveApiUrl` | `string` | The URL of the Memento API |
 | `archiveName` | `string` | The name of the web archive, to be used with [message tags](#note1) |
 | `timeout` | `number` | timeout (in milisseconds) for the API request |
-
-If instead of adding another archive to arquivo404 one wishes to replace the default web archive (Arquivo.pt) with a custom one, the method `archive` should be used instead of `addArchive`.  
 
 ## Web Archive
 By default uses the Arquivo.pt Memento API, but any other could be used, if the CORS of the web archive allow it.
