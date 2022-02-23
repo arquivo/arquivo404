@@ -3,15 +3,16 @@
 Script that adds a link to Arquivo.pt wayback if the current page URL is archived.
 It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc7089) to search the lastest available memento and adds a link to it if exists.
 
-See it in action:
+## Examples of fixed broken links
+* https://andremourao.com/courses
+* https://www.fccn.pt/SCCN/
+* https://webcurator.ddns.net/?p=134
 * https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
 * https://sobre.arquivo.pt/sobre/publicacoes-1/automatic-identification-and-preservation-of-r-d
 * https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/arquitectura/
 * https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/tecnologia/
 * https://sobre.arquivo.pt/en/about/system-functioning/technology/
 * https://sobre.arquivo.pt/en/about/system-functioning/architecture/
-* https://andremourao.com/courses
-* https://ifilnova.pt/
 
 ## Usage
 
@@ -24,7 +25,7 @@ The script will then show the link to the archive if there is an archived versio
 <script type="text/javascript" src="//arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
 ```
 
-### Custom message and message placing
+### <a name="custom-messages"></a> Custom message and message placing
 
 
 Place an empty div with a specific id (e.g. "arquivo404message") where you want the 404 message to appear:
@@ -61,23 +62,49 @@ A minimal functional example is available on [404-page-example.html](404-page-ex
 ## Parameters
 
 Parameters can be passed to arquivo404 by calling the following functions with the desired parameters:
-```
+```js
 ARQUIVO_NOT_FOUND_404
   .messageElementId('arquivo404message')
   .addMessage('pt', '<a href="{archivedURL}">Visite uma versão arquivada desta página de {day} {monthLong}, {year}.</a>')
-  .call()
+  .call();
 ```
 
-| Method | Description | Arguments |
+| Method | Description | Arguments | Example |
+| -- | -- | -- | -- |
+| messageElementId | Id of the HTML element to write the message | messageElementId | `ARQUIVO_NOT_FOUND_404`<br>**`.messageElementId('arquivo404message')`**<br>`.call();` |
+| message | Use this message[\*](#note1) regardless of language. | message | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.message('<a href="{archivedURL}">Visite uma versão arquivada desta página de {day} {monthLong}, {year}.</a>')`**<br>`.call();` |
+| addMessage | Add a message[\*](#note1) for a specific language | language, message | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.addMessage('en','english message')`<br>`.addMessage('pt','portuguese message')`**<br>`.call();` |
+| addArchive | Add web archive using the URL of the Memento API | url |  `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.addArchive('https://arquivo.pt/wayback/timemap/link/')`<br>**`.call();` |
+| addArchive | Add web archive using an archive prototype[\*\*](#note2) | { <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveApiUrl, <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveName,<br>&nbsp;&nbsp;&nbsp;&nbsp;timeout <br>} | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('arquivo404message')`<br>**`.addArchive({`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveApiUrl:'https://arquivo.pt/wayback/timemap/link/',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveName: 'Arquivo.pt',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`timeout: 2000`<br>`})`<br>**`.call();`|
+
+#### <a name="note1"></a> \* Message customization with tags
+Messages can use tags between curly brackets to display dynamic information like the archived date, the archived URL or the archive's name. E.g.: <br>
+`'<a href="{archivedURL}">Visit an earlier version of this page from {day} {monthLong}, {year} at {archiveName}.</a>'` <br>
+A comprehensive list of all tags:
+
+| Tag | Description |
+| -- | -- |
+| `archiveName` | The name of the web archive storing the archived page |
+| `archivedURL` | The URL to the archived page |
+| `year` | The year of the archived page |
+| `month` | The month number (0-11) of the archived page |
+| `monthLong` | The month name (e.g.: March) of the archived page |
+| `day` | The day of the month of the archived page |
+| `hour` | The hour of the archived page |
+| `minute` | The minute of the archived page |
+| `second` | The second of the archived page |
+| `millisecond` | The millisecond of the archived page |
+
+[See a full example](#custom-messages)
+
+#### <a name="note2"></a> \*\* Archive prototype
+An archive prototype is an object with three properties:
+
+| Property | Type | Description |
 | -- | -- | -- |
-| message | Only use a specific message. | message |
-| addMessage | Add a language message | language, message | 
-| messages | Array of other arrays that have two element each | Array of pairs language-message, eg. `[['pt','Message in PT'],['en','Message in EN']]`
-| language | Force show message on specific language | language |
-| messageElementId | Id of the element to write the message | messageElementId |
-| addArchive | Add web archive | A prototype with archiveApiUrl, archiveName and timeout or a single URL of the Memento API |
-| archive | Add a new web archive and remove default one | Same as previous |
-| url | Change url to searhc on web archives instead of the current one. | Change url to search on web archives instead of the current page. |
+| `archiveApiUrl` | `string` | The URL of the Memento API |
+| `archiveName` | `string` | The name of the web archive, to be used with [message tags](#note1) |
+| `timeout` | `number` | timeout (in milisseconds) for the API request |
 
 ## Web Archive
 By default uses the Arquivo.pt Memento API, but any other could be used, if the CORS of the web archive allow it.
