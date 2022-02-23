@@ -6,11 +6,29 @@
 </head>
 <body>
 	<p>other text</p>
+
+	<!-- Div to hold Arquivo404's message -->
+	<div id="messageDiv"></div>
+
 	<script type="text/javascript">
 		function start404() {
 			ARQUIVO_NOT_FOUND_404
-				.url("https://sobre.arquivo.pt/colabore/actividades-de-investigacao-e-desenvolvimento/bolsas-1/bolsas")
-				//.messages([['pt', '<a href="{archivedURL}">Visite uma versão anterior desta página de {day} {monthLong}, {year}.</a>']])
+				// Url to search for earlier versions
+				.url("https://sobre.arquivo.pt/colabore/actividades-de-investigacao-e-desenvolvimento/bolsas-1/bolsas") 
+
+				// Setting the ID of the HTML element we want to display arquivo404's message
+				.messageElementId('messageDiv')
+
+				// Setting the message to display
+				.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')
+
+				// Setting the date format to MM/DD/YYYY
+				.setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/'))
+
+				// Adding the Internet Archive to the list of APIs to search for
+				.addArchive( {timeout: 6000, archiveName: "Internet Archive", archiveApiUrl: "http://web.archive.org/web/timemap/link/"} )
+				
+				// Starting the search
 				.call();
 		}
 	</script>
