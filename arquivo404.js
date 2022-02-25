@@ -13,8 +13,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 	var _dateFormatter = (date) => date.toLocaleDateString('en-CA'); // YYYY-MM-DD
 
 	var _messagesMap = new Map([ 
-		['en', '<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>'],
-		['pt', '<a href="{archivedURL}">Visite uma vers&atild;o anterior desta p&aacute;gina de {date} no {archiveName}.</a>'] 
+		['', '<a href="{archivedURL}">Visite uma vers&atild;o anterior desta p&aacute;gina de {date} no {archiveName}.</a>'] 
 	]);
 
 	// List of archives to try
