@@ -1,8 +1,8 @@
 # Soft 404 linker to Arquivo.pt
 
 If the current URL was web-archived by Arquivo.pt, this script will generate a message containing a link to its oldest web-archived version.  
-It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies/wiki/Memento--API) to search the lastest available memento (version) of the URL. Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
-If the URL was not web-archived, no message is presented.
+It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies/wiki/Memento--API) to search the oldest version (memento) of the URL. Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
+If the URL was not web-archived, then no message is presented.
 
 ## Examples of fixed broken links
 * https://andremourao.com/courses
