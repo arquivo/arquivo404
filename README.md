@@ -1,7 +1,8 @@
 # Soft 404 linker to Arquivo.pt
 
-Script that adds a link to Arquivo.pt wayback if the current page URL is archived.
-It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc7089) to search the lastest available memento and adds a link to it if exists.
+If the current URL was web-archived by Arquivo.pt, this script will generate a message containing a link to its oldest web-archived version.  
+It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies/wiki/Memento--API) to search the lastest available memento (version) of the URL. Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
+If the URL was not web-archived, no message is presented.
 
 ## Examples of fixed broken links
 * https://andremourao.com/courses
@@ -18,8 +19,7 @@ It uses the Arquivo.pt Memento API [rfc 7089](https://tools.ietf.org/html/rfc708
 
 ### One-liner
 
-The simplest use case is to add the script in the HTML section where you want the link and message to the archived page.
-The script will then show the link to the archive if there is an archived version of the missing page.
+The simplest use case is to include the script in the HTML section where the message will be presented.
 
 ```js
 <script type="text/javascript" src="//arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
@@ -27,7 +27,7 @@ The script will then show the link to the archive if there is an archived versio
 
 ## Request Methods
 
-The Arquivo404 script exports a globally scoped variable: `ARQUIVO_NOT_FOUND_404`. This object gives the developer methods to configure and costumize how arquivo404 searches for the missing web page and how it displays the archived page to the user.
+The Arquivo404 script exports a globally scoped variable: `ARQUIVO_NOT_FOUND_404`. This object gives the developer methods to configure and costumize how arquivo404 searches for the missing URL and how it displays the web-archived content to the user.
 
 | Method | Description | Arguments | Example |
 | -- | -- | -- | -- |
