@@ -1,6 +1,6 @@
 # Arquivo404: soft 404 linker to Arquivo.pt
 
-If the current URL was web-archived by [Arquivo.pt](https://arquivo.pt/?l=en), this script will generate a customizable message containing a link to its oldest web-archived version (memento).  
+If the a broken URL was web-archived by [Arquivo.pt](https://arquivo.pt/?l=en), this script will generate a customizable message containing a link to its oldest web-archived version (memento).  
 It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies/wiki/Memento--API) to search for the oldest version memento of the URL. Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
 If the URL was not web-archived, then no message is presented.
 
@@ -27,16 +27,16 @@ The simplest use case is to include the script in the HTML section where the mes
 
 ## Request Methods
 
-The Arquivo404 script exports a globally scoped variable: `ARQUIVO_NOT_FOUND_404`. This object provides developer methods to costumize how the arquivo404 script searches for the missing URL and the message presented to the users.
+The Arquivo404 script exports a globally scoped variable: `ARQUIVO_NOT_FOUND_404`. This object provides methods to costumize how the arquivo404 script searches for the broken URL and the message presented to the users.
 
 | Method | Description | Arguments | Example |
 | -- | -- | -- | -- |
 | messageElementId | Sets the id of the HTML element to write the message. If none is given, a new `<div>` will be created for this purpose. It will be appended to the parent of the `<script>` element that was used to load this script. | messageElementId : `string` | `ARQUIVO_NOT_FOUND_404`<br>**`.messageElementId('messageDiv')`**<br>`.call();` |
 | message | Sets the message to be displayed by arquivo404. | message : `string` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')`**<br>`.call();` |
 | setDateFormatter | Configures date format using the `date` tag on messages. The default formatting is `YYYY-MM-DD`. `setDateFormatter`'s argument is a function that receives a single javascript `Date` object and returns a `string`.   | dateFormatter : `function` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/')) `**<br>`.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')`<br>`.call();` |
-| addArchive | Add a web archive compliant with the Memento API protocol to search for web-archived versions of the broken URL. By default, arquivo404 uses the Arquivo.pt web archive. The argument of this function should have 3 properties: <br> &nbsp;&nbsp;archiveApiUrl - URL to the timemap/link/ endpoint of the API. <br> &nbsp;&nbsp;archiveName - Archive name to be used with the ```archiveName``` tag in the message. <br> &nbsp;&nbsp;timeout - Timeout for the API request. | { <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveApiUrl: `string`, <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveName: `string`,<br>&nbsp;&nbsp;&nbsp;&nbsp;timeout: `number` <br>} | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.addArchive({`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveApiUrl:'http://web.archive.org/web/timemap/link/',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveName: 'Internet Archive',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`timeout: 2000`<br>`})`<br>**`.call();`|
-| url | Specify a given URL to search for in web archives. If this method isn't used, arquivo404 will search for the URL in `window.location.href`. | url : `string` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.url('http://www.fccn.pt/SCCN/')`<br>**`.call();`|
-| call | Starts the search for an archived version of the missing page |  -  | `ARQUIVO_NOT_FOUND_404`<br>**`.call()`**|
+| addArchive | Adds a web archive compliant with the Memento API protocol to search for web-archived versions of the broken URL. By default, arquivo404 uses the Arquivo.pt web archive. The argument of this function should have 3 properties: <br> &nbsp;&nbsp;```archiveApiUrl``` - URL to the timemap/link/ endpoint of the API. <br> &nbsp;&nbsp;```archiveName``` - Archive name to be used with the ```archiveName``` tag in the message. <br> &nbsp;&nbsp;```timeout``` - Timeout for the API request. | { <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveApiUrl: `string`, <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveName: `string`,<br>&nbsp;&nbsp;&nbsp;&nbsp;timeout: `number` <br>} | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.addArchive({`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveApiUrl:'http://web.archive.org/web/timemap/link/',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveName: 'Internet Archive',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`timeout: 2000`<br>`})`<br>**`.call();`|
+| url | Specifies a given URL to search in web archives. If this method isn't used, arquivo404 will search for the URL in `window.location.href`. | url : `string` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.url('http://www.fccn.pt/SCCN/')`<br>**`.call();`|
+| call | Starts the search for an web-archived version of the broken URL |  -  | `ARQUIVO_NOT_FOUND_404`<br>**`.call()`**|
 
 ## Message Customization
 
@@ -46,19 +46,19 @@ Messages can use tags between curly brackets to display dynamic information like
 | Tag | Description |
 | -- | -- |
 | `archiveName` | The name of the web archive storing the archived page |
-| `archivedURL` | The URL to the archived page |
+| `archivedURL` | The URL that references the web-archived page |
 | `date` | The full date of the archived page. The default format is `YYYY-MM-DD`, but it can be configured using the `setDateFormatter` method. |
 
 ## Examples
 
 ### Presenting the message within a specific HTML element
-Place an empty <div> with a specific id (e.g. "messageDiv") where you want the 404 message to be presented:
+Place an empty ```html<div>``` with a specific id (e.g. "messageDiv") where you want the 404 message to be presented:
 
 ```html
 <div id="messageDiv"></div>
 ```
 
-Your customized message will be presented within this <div> element if there is an web-archived version of the missing page.
+The customized message will be presented within this <div> element if there is an web-archived version of the missing page.
 
 ```html
 <script type="text/javascript">
