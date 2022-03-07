@@ -52,13 +52,13 @@ Messages can use tags between curly brackets to display dynamic information like
 ## Examples
 
 ### Presenting the message within a specific HTML element
-Place an empty ```html<div>``` with a specific id (e.g. "messageDiv") where you want the 404 message to be presented:
+Place an empty ```<div>``` with a specific id (e.g. "messageDiv") where you want the 404 message to be presented:
 
 ```html
 <div id="messageDiv"></div>
 ```
 
-The customized message will be presented within this <div> element if there is an web-archived version of the missing page.
+The customized message will be presented within this ```<div>``` element if there is an web-archived version of the missing page.
 
 ```html
 <script type="text/javascript">
@@ -106,8 +106,8 @@ The message displayed by the arquivo404 script can be customized using the `mess
 
 ### Specifying the URL to search in web archives
 
-Some websites redirect broken links to a soft 404 page that looses track of the original missing URL. In theses cases, by default the arquivo404 script would search for web-archived versions of the URL of the soft 404 page, rather than the broken URL.
-If the website can somehow keep track of the broken URL that was requested and inject it in its soft 404 page using the ```url```, this issue can be solved:
+Some websites redirect broken links to a soft 404 page that looses track of the original broken URL. In theses cases, by default the arquivo404 script would search for web-archived versions of the soft 404 page, instead of the broken URL.
+If the website could keep track of the broken URL that was requested and inject it in its soft 404 page using the ```url```, this issue would be solved:
 
 ```html
 <div id="messageDiv"></div>
@@ -163,7 +163,7 @@ By default, the date is displayed in the `YYYY-MM-DD` format. This can be change
 
 ### Adding web archives to search for the broken URL
 
-Sometimes a missing page that isn't available in Arquivo.pt may have been preserved by other archives such as the [Internet Archive)](https://archive.org/). Arquivo404 adding web archives that support the Memento protocol.
+Sometimes a missing page that isn't available in Arquivo.pt may have been preserved by other archives such as the [Internet Archive](https://archive.org/). Arquivo404 supports adding web archives that support the Memento protocol.
 
 ```html
 <div id="messageDiv"></div>
@@ -193,7 +193,7 @@ Sometimes a missing page that isn't available in Arquivo.pt may have been preser
 
 #### Web Archives must have CORS enabled
 
-The arquivo404 javascript requires that the Memento API has an open CORS policy.
+The arquivo404 javascript requires that the Memento API has an [open CORS policy](https://www.w3.org/wiki/CORS_Enabled).
 In practive, the web archive server should return the response HTTP header: `Access-Control-Allow-Origin: *`
 
 
