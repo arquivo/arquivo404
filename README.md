@@ -90,7 +90,7 @@ Messages can use tags between curly brackets to display the following dynamic in
 
 The message displayed by the arquivo404 script can be customized using the `message` method:
 
-```
+```html
 <script type="text/javascript">
     ARQUIVO_NOT_FOUND_404
       .messageElementId('messageDiv')
@@ -110,7 +110,7 @@ In these cases, by default the arquivo404 script would search for web-archived v
 
 If the website could keep track of the broken URL that was requested and inject it in its soft 404 page using the ```url```, this issue would be solved:
 
-```
+```html
 <script type="text/javascript">
     ARQUIVO_NOT_FOUND_404
       .messageElementId('messageDiv')
@@ -125,7 +125,7 @@ If the website could keep track of the broken URL that was requested and inject 
 
 By default, the date is displayed in the `YYYY-MM-DD` format. This can be changed using the `setDateFormatter` method:
 
-```
+```html
 <script type="text/javascript">
   function customDateFormatter(date){
     // formats the date into MM/DD/YYYY
@@ -146,7 +146,7 @@ By default, the date is displayed in the `YYYY-MM-DD` format. This can be change
 
 Sometimes a missing page that isn't available in Arquivo.pt may have been preserved by other archives such as the [Internet Archive](https://archive.org/). Arquivo404 supports adding web archives that support the Memento protocol.
 
-```
+```html
 <script type="text/javascript">
     ARQUIVO_NOT_FOUND_404
       .messageElementId('messageDiv')
