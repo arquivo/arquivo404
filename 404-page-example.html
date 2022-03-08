@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>404 Page Example</title>
+	<title>Soft 404 page</title>
+	<!-- 1. Import the arquivo404 script in the header of the soft 404 webpage -->
+	<script type="text/javascript" src="https://arquivo.pt/arquivo404.js"></script>
 
 </head>
 <body>
-	<p>example text</p>
+	<p>Lorem ipsum</p>
 
-	<!-- Div to hold Arquivo404's message -->
+	<!-- 2. Create an empty <div> with a specific id (e.g. "messageDiv") where you want the arquivo404 message to be presented. -->
 	<div id="messageDiv"></div>
 
+	<!-- 3. Customize the ARQUIVO_NOT_FOUND_404 object and run the script by invoking the call() method -->
 	<script type="text/javascript">
-		function start404() {
 			ARQUIVO_NOT_FOUND_404
 				// Url to search for earlier versions
 				.url("https://sobre.arquivo.pt/colabore/actividades-de-investigacao-e-desenvolvimento/bolsas-1/bolsas") 
@@ -30,9 +32,7 @@
 				
 				// Starting the search
 				.call();
-		}
 	</script>
-	<script type="text/javascript" src="arquivo404.js" async defer onload="start404();"></script>
-
+	
 </body>
 </html>
