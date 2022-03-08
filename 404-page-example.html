@@ -15,7 +15,7 @@
 	<!-- 3. Customize the ARQUIVO_NOT_FOUND_404 object and run the script by invoking the call() method -->
 	<script type="text/javascript">
 			ARQUIVO_NOT_FOUND_404
-				// Url to search for earlier versions
+				// Specify a given URL to search in web archives
 				.url("https://sobre.arquivo.pt/colabore/actividades-de-investigacao-e-desenvolvimento/bolsas-1/bolsas") 
 
 				// Setting the ID of the HTML element we want to display arquivo404's message
@@ -27,10 +27,10 @@
 				// Setting the date format to MM/DD/YYYY
 				.setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/'))
 
-				// Adding the Internet Archive to the list of APIs to search for
+				// Adding the Internet Archive to the list of Memento-compliant web archives to search
 				.addArchive( {timeout: 6000, archiveName: "Internet Archive", archiveApiUrl: "http://web.archive.org/web/timemap/link/"} )
 				
-				// Starting the search
+				// Run the script
 				.call();
 	</script>
 	
