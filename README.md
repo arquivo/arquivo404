@@ -62,7 +62,7 @@ Messages can use tags between curly brackets to display the following dynamic in
 </head>
 ```
 
-2. Create an empty ```<div>``` with a specific id (e.g. "messageDiv") where you want the arquivo404 message to be presented. The message will be presented only if a web-archived version of the broken URL was found.
+2. Create an empty ```<div>``` with a specific id (e.g. "messageDiv") where you want the arquivo404 message to be presented. 
 
 ```html
 <body>
@@ -70,7 +70,7 @@ Messages can use tags between curly brackets to display the following dynamic in
 <div id="messageDiv"></div>
 ```
 
-3. Customize the ```ARQUIVO_NOT_FOUND_404``` object using the ```messageElementId``` method to identify the created ```div``` and runs arquivo404 script by invoking the ```call()``` method:
+3. Customize the ```ARQUIVO_NOT_FOUND_404``` object using the ```messageElementId``` method to identify the created ```<div>``` and run arquivo404 script by invoking the ```call()``` method:
 
 ```html
 <script type="text/javascript">
@@ -78,55 +78,40 @@ Messages can use tags between curly brackets to display the following dynamic in
       .messageElementId('messageDiv')
       .call();
 </script>
-```
-
-
-### Customizing the contents of the message
-
-The message displayed by the arquivo404 script can be customized using the `message` method.
-
-```html
-<div id="messageDiv"></div>
-
-...
-
-<script type="text/javascript">
-  function start404() {
-    ARQUIVO_NOT_FOUND_404
-      .messageElementId('messageDiv')
-      .message('Oops! The page you were searching for seems to be missing! <a href="{archivedURL}">Visit an archived version of the page from {date} at {archiveName}.</a>')
-      .call();
-  }
-</script>
-
-<script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
-
 ...
 </body>
 ```
 
-### Specifying the URL to search in web archives
 
-Some websites redirect broken links to a soft 404 page that looses track of the original broken URL. In theses cases, by default the arquivo404 script would search for web-archived versions of the soft 404 page, instead of the broken URL.
+
+### Customizing the message 
+
+The message displayed by the arquivo404 script can be customized using the `message` method:
+
+```
+<script type="text/javascript">
+    ARQUIVO_NOT_FOUND_404
+      .messageElementId('messageDiv')
+      .message('Oops! The page you were searching for seems to be missing! <a href="{archivedURL}">Visit an archived version of the page from {date} at {archiveName}.</a>')
+      .call();
+</script>
+...
+</body>
+```
+
+
+### Specifying a given URL to search in web archives
+
+Some websites redirect broken links to a soft 404 page that looses track of the original broken URL. In these cases, by default the arquivo404 script would search for web-archived versions of the soft 404 page, instead of the broken URL.
 If the website could keep track of the broken URL that was requested and inject it in its soft 404 page using the ```url```, this issue would be solved:
 
-```html
-<div id="messageDiv"></div>
-
-...
-
+```
 <script type="text/javascript">
-  function start404() {
     ARQUIVO_NOT_FOUND_404
       .messageElementId('messageDiv')
       .url(originalUrl) // Here we're assuming the original URL is stored in this variable
       .call();
-  }
 </script>
-
-<!-- Gets arquivo404 script from Arquivo.pt and executes it on page load -->
-<script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
-
 ...
 </body>
 ```
@@ -135,29 +120,18 @@ If the website could keep track of the broken URL that was requested and inject 
 
 By default, the date is displayed in the `YYYY-MM-DD` format. This can be changed using the `setDateFormatter` method:
 
-```html
-<div id="messageDiv"></div>
-
-...
 
 <script type="text/javascript">
   function customDateFormatter(date){
     // formats the date into MM/DD/YYYY
     return (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
   }
-
-  function start404() {
     ARQUIVO_NOT_FOUND_404
       .messageElementId('messageDiv')
       .setDateFormatter(customDateFormatter) 
       .message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')
       .call();
-  }
 </script>
-
-<!-- replace https://arquivo.pt/arquivo404.js with your self hosted script  -->
-<script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
-
 ...
 </body>
 ```
@@ -166,28 +140,16 @@ By default, the date is displayed in the `YYYY-MM-DD` format. This can be change
 
 Sometimes a missing page that isn't available in Arquivo.pt may have been preserved by other archives such as the [Internet Archive](https://archive.org/). Arquivo404 supports adding web archives that support the Memento protocol.
 
-```html
-<div id="messageDiv"></div>
-
-...
-
 <script type="text/javascript">
-
-  function start404() {
     ARQUIVO_NOT_FOUND_404
       .messageElementId('messageDiv')
-			.addArchive( {  // adding the Internet Archive 
+	.addArchive( {  // adding the Internet Archive 
         timeout: 6000, 
         archiveName: "Internet Archive", 
         archiveApiUrl: "http://web.archive.org/web/timemap/link/" // MUST point towards the timemap/link endpoint of the API.
       } ) 
       .call();
-  }
 </script>
-
-<!-- replace https://arquivo.pt/arquivo404.js with your self hosted script  -->
-<script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
-
 ...
 </body>
 ```
@@ -195,7 +157,7 @@ Sometimes a missing page that isn't available in Arquivo.pt may have been preser
 #### Web Archives must have CORS enabled
 
 The arquivo404 javascript requires that the Memento API has an [open CORS policy](https://www.w3.org/wiki/CORS_Enabled).
-In practive, the web archive server should return the response HTTP header: `Access-Control-Allow-Origin: *`
+In practice, the web archive server should respond with the HTTP header: `Access-Control-Allow-Origin: *`
 
 
 ### A complete example
