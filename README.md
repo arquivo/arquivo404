@@ -4,7 +4,9 @@ Arquivo404 automatically fixes links to broken URLs.
 
 If a broken URL on a given website was web-archived by [Arquivo.pt](https://arquivo.pt/?l=en), the arquivo404 script will generate a customizable message containing a link to its oldest web-archived version (memento). If the URL was not web-archived, then no message is presented.
 
-It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies/wiki/Memento--API) to search for the oldest web-archived version of the broken URL. Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
+It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies/wiki/Memento--API) to search for the oldest web-archived version of the broken URL. 
+
+Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
 
 ## Examples of links to broken URLs fixed with arquivo404
 * https://andremourao.com/courses
