@@ -21,7 +21,7 @@ Other web archives that support the [Memento protocol (rfc 7089)](https://datatr
 
 ## One-line installation
 
-The simplest way to install the arquivo404 script is to include it in the HTML section where the message will be presented.
+The simplest way to install the arquivo404 script is to include it in the HTML element where the message will be presented.
 
 ```js
 <script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
@@ -46,16 +46,16 @@ Messages can use tags between curly brackets to display the following dynamic in
 
 | Tag | Description |
 | -- | -- |
-| `archiveName` | The name of the web archive storing the archived page |
-| `archivedURL` | The URL that references the web-archived page |
-| `date` | The full date of the archived page. The default format is `YYYY-MM-DD`, but it can be customized using the `setDateFormatter` method. |
+| `archiveName` | The name of the web archive preserving the content of the broken URL |
+| `archivedURL` | The URL that references the web-archived content|
+| `date` | The date when the content was web-archived. The default format is `YYYY-MM-DD`, but it can be customized using the `setDateFormatter` method. |
 
 ## Usage examples
 
 ### Presenting the message within a specific HTML element
 
 
-1. Import the arquivo404 script in the header of the soft 404 webpage
+1. Import the arquivo404 script in the header of the soft 404 webpage:
 ```html
 <head>
 ...
@@ -64,7 +64,7 @@ Messages can use tags between curly brackets to display the following dynamic in
 </head>
 ```
 
-2. Create an empty ```<div>``` with a specific id (e.g. "messageDiv") where you want the arquivo404 message to be presented. 
+2. Create an empty ```<div>``` with a specific id (e.g. "messageDiv") where you want the arquivo404 message to be presented: 
 
 ```html
 <body>
@@ -104,7 +104,10 @@ The message displayed by the arquivo404 script can be customized using the `mess
 
 ### Specifying a given URL to search in web archives
 
-Some websites redirect broken links to a soft 404 page that looses track of the original broken URL. In these cases, by default the arquivo404 script would search for web-archived versions of the soft 404 page, instead of the broken URL.
+Some websites redirect broken links to a soft 404 page that looses track of the original broken URL. 
+
+In these cases, by default the arquivo404 script would search for web-archived versions of the soft 404 page, instead of the broken URL.
+
 If the website could keep track of the broken URL that was requested and inject it in its soft 404 page using the ```url```, this issue would be solved:
 
 ```
@@ -122,7 +125,7 @@ If the website could keep track of the broken URL that was requested and inject 
 
 By default, the date is displayed in the `YYYY-MM-DD` format. This can be changed using the `setDateFormatter` method:
 
-
+```
 <script type="text/javascript">
   function customDateFormatter(date){
     // formats the date into MM/DD/YYYY
@@ -140,8 +143,10 @@ By default, the date is displayed in the `YYYY-MM-DD` format. This can be change
 
 ### Adding web archives to search for the broken URL
 
+
 Sometimes a missing page that isn't available in Arquivo.pt may have been preserved by other archives such as the [Internet Archive](https://archive.org/). Arquivo404 supports adding web archives that support the Memento protocol.
 
+```
 <script type="text/javascript">
     ARQUIVO_NOT_FOUND_404
       .messageElementId('messageDiv')
