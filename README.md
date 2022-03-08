@@ -104,11 +104,11 @@ The message displayed by the arquivo404 script can be customized using the `mess
 
 ### Specifying a given URL to search in web archives
 
-Some websites redirect broken links to a soft 404 page that looses track of the original broken URL. 
+Some websites redirect broken links to a soft 404 page that looses track of the broken URL. 
 
 In these cases, by default the arquivo404 script would search for web-archived versions of the soft 404 page, instead of the broken URL.
 
-If the website could keep track of the broken URL that was requested and inject it in its soft 404 page using the ```url```, this issue would be solved:
+If the website could keep track of the broken URL that was requested and inject it in its soft 404 page using the ```url``` method, this issue would be solved:
 
 ```html
 <script type="text/javascript">
