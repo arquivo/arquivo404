@@ -18,16 +18,16 @@
 				// Specify a given URL to search in web archives
 				.url("https://sobre.arquivo.pt/colabore/actividades-de-investigacao-e-desenvolvimento/bolsas-1/bolsas") 
 
-				// Setting the ID of the HTML element we want to display arquivo404's message
+				// Set the ID of the HTML element we want to display arquivo404's message
 				.messageElementId('messageDiv')
 
-				// Setting the message in English
+				// Set the message in English
 				.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')
 
-				// Setting the date format to MM/DD/YYYY
+				// Set the date format to MM/DD/YYYY
 				.setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/'))
 
-				// Adding the Internet Archive to the list of Memento-compliant web archives to search
+				// Add the Internet Archive to the list of Memento-compliant web archives to search
 				.addArchive( {timeout: 6000, archiveName: "Internet Archive", archiveApiUrl: "http://web.archive.org/web/timemap/link/"} )
 				
 				// Run the script
