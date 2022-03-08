@@ -19,7 +19,7 @@ Other web archives that support the [Memento protocol (rfc 7089)](https://datatr
 * https://sobre.arquivo.pt/en/about/system-functioning/technology/
 * https://sobre.arquivo.pt/en/about/system-functioning/architecture/
 
-## One line installation
+## One-line installation
 
 The simplest way to install the arquivo404 script is to include it in the HTML section where the message will be presented.
 
