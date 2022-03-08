@@ -6,7 +6,7 @@ If a broken URL on a given website was web-archived by [Arquivo.pt](https://arqu
 
 It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies/wiki/Memento--API) to search for the oldest web-archived version of the broken URL. Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
 
-## Examples of fixed broken links
+## Examples of links to broken URLs fixed with arquivo404
 * https://andremourao.com/courses
 * https://www.fccn.pt/SCCN/
 * https://webcurator.ddns.net/?p=134
@@ -17,19 +17,17 @@ It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies
 * https://sobre.arquivo.pt/en/about/system-functioning/technology/
 * https://sobre.arquivo.pt/en/about/system-functioning/architecture/
 
-## Usage
+## One line installation
 
-### One-liner
-
-The simplest use case is to include the script in the HTML section where the message will be presented.
+The simplest way to install the arquivo404 script is to include it in the HTML section where the message will be presented.
 
 ```js
-<script type="text/javascript" src="//arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
+<script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
 ```
 
-## Request Methods
+## Methods to customize arquivo404 search and message
 
-The Arquivo404 script exports a globally scoped variable: `ARQUIVO_NOT_FOUND_404`. This object provides methods to costumize how the arquivo404 script searches for the broken URL and the message presented to the users.
+The Arquivo404 script exports a globally scoped variable: `ARQUIVO_NOT_FOUND_404`. This object provides methods to customize how the arquivo404 script searches for the broken URL and the message presented to the users.
 
 | Method | Description | Arguments | Example |
 | -- | -- | -- | -- |
@@ -38,49 +36,51 @@ The Arquivo404 script exports a globally scoped variable: `ARQUIVO_NOT_FOUND_404
 | setDateFormatter | Configures date format using the `date` tag on messages. The default formatting is `YYYY-MM-DD`. `setDateFormatter`'s argument is a function that receives a single javascript `Date` object and returns a `string`.   | dateFormatter : `function` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/')) `**<br>`.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')`<br>`.call();` |
 | addArchive | Adds a web archive compliant with the Memento API protocol to search for web-archived versions of the broken URL. By default, arquivo404 uses the Arquivo.pt web archive. The argument of this function should have 3 properties: <br> &nbsp;&nbsp;```archiveApiUrl``` - URL to the timemap/link/ endpoint of the API. <br> &nbsp;&nbsp;```archiveName``` - Archive name to be used with the ```archiveName``` tag in the message. <br> &nbsp;&nbsp;```timeout``` - Timeout for the API request. | { <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveApiUrl: `string`, <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveName: `string`,<br>&nbsp;&nbsp;&nbsp;&nbsp;timeout: `number` <br>} | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.addArchive({`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveApiUrl:'http://web.archive.org/web/timemap/link/',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveName: 'Internet Archive',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`timeout: 2000`<br>`})`<br>**`.call();`|
 | url | Specifies a given URL to search in web archives. If this method isn't used, arquivo404 will search for the URL in `window.location.href`. | url : `string` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.url('http://www.fccn.pt/SCCN/')`<br>**`.call();`|
-| call | Starts the search for an web-archived version of the broken URL |  -  | `ARQUIVO_NOT_FOUND_404`<br>**`.call()`**|
+| call | Executes the arquivo404 script |  -  | `ARQUIVO_NOT_FOUND_404`<br>**`.call()`**|
 
-## Message Customization
+### Special tags for custom message
 
-Messages can use tags between curly brackets to display dynamic information like the ```archived date```, the ```archived URL``` or the ```web archive name```. For example: <br>
-`'<a href="{archivedURL}">Visit an earlier version of this page from {date} at {archiveName}.</a>'`:<br>
+Messages can use tags between curly brackets to display the following dynamic information:
 
 | Tag | Description |
 | -- | -- |
 | `archiveName` | The name of the web archive storing the archived page |
 | `archivedURL` | The URL that references the web-archived page |
-| `date` | The full date of the archived page. The default format is `YYYY-MM-DD`, but it can be configured using the `setDateFormatter` method. |
+| `date` | The full date of the archived page. The default format is `YYYY-MM-DD`, but it can be customized using the `setDateFormatter` method. |
 
 ## Examples
 
 ### Presenting the message within a specific HTML element
-Place an empty ```<div>``` with a specific id (e.g. "messageDiv") where you want the 404 message to be presented:
+
+
+1. Import the arquivo404 script in the header of the soft 404 webpage
+```html
+<head>
+...
+<script type="text/javascript" src="https://arquivo.pt/arquivo404.js"></script>
+...
+</head>
+```
+
+2. Create an empty ```<div>``` with a specific id (e.g. "messageDiv") where you want the arquivo404 message to be presented. The message will be presented only if a web-archived version of the broken URL was found.
 
 ```html
+<body>
+...
 <div id="messageDiv"></div>
 ```
 
-The customized message will be presented within this ```<div>``` element if there is an web-archived version of the missing page.
+3. Customize the ```ARQUIVO_NOT_FOUND_404``` object using the ```messageElementId``` method to identify the created ```div``` and runs arquivo404 script by invoking the ```call()``` method:
 
 ```html
 <script type="text/javascript">
-  function start404() {
     ARQUIVO_NOT_FOUND_404
       .messageElementId('messageDiv')
       .call();
-  }
 </script>
 ```
 
-Then you load and initialize the arquivo404 Javascript code on the footer. The `onload` attribute of the script element should run your custom function.
 
-```html
-<!-- replace https://arquivo.pt/arquivo404.js with your self hosted script  -->
-<script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
-
-...
-</body>
-```
 ### Customizing the contents of the message
 
 The message displayed by the arquivo404 script can be customized using the `message` method.
@@ -99,7 +99,6 @@ The message displayed by the arquivo404 script can be customized using the `mess
   }
 </script>
 
-<!-- replace https://arquivo.pt/arquivo404.js with your self hosted script  -->
 <script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
 
 ...
@@ -125,14 +124,14 @@ If the website could keep track of the broken URL that was requested and inject 
   }
 </script>
 
-<!-- replace https://arquivo.pt/arquivo404.js with your self hosted script  -->
+<!-- Gets arquivo404 script from Arquivo.pt and executes it on page load -->
 <script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="start404();"></script>
 
 ...
 </body>
 ```
 
-### Costumizing date format in the message
+### Customizing date format in the message
 
 By default, the date is displayed in the `YYYY-MM-DD` format. This can be changed using the `setDateFormatter` method:
 
