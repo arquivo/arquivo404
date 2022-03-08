@@ -48,7 +48,7 @@ Messages can use tags between curly brackets to display the following dynamic in
 | `archivedURL` | The URL that references the web-archived page |
 | `date` | The full date of the archived page. The default format is `YYYY-MM-DD`, but it can be customized using the `setDateFormatter` method. |
 
-## Examples
+## Usage examples
 
 ### Presenting the message within a specific HTML element
 
