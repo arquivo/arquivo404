@@ -70,7 +70,7 @@ The customized message will be presented within this ```<div>``` element if ther
 </script>
 ```
 
-Then you load and initialize the arquivo404 Javascript code on the footer. the `onload` attribute of the script element should run your custom function.
+Then you load and initialize the arquivo404 Javascript code on the footer. The `onload` attribute of the script element should run your custom function.
 
 ```html
 <!-- replace https://arquivo.pt/arquivo404.js with your self hosted script  -->
