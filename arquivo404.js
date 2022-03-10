@@ -10,10 +10,10 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 	var _handled = false;
 	var _messageElementId = null;
 	var _language = navigator.language || navigator.userLanguage;
+	var _dateFormatter = (date) => date.toLocaleDateString('en-CA'); // YYYY-MM-DD
 
 	var _messagesMap = new Map([ 
-		['en', '<a href="{archivedURL}">View an archived version of the page from {day} {monthLong}, {year} at {archiveName}</a>'],
-		['pt', '<a href="{archivedURL}">Visite uma vers&atild;o anterior desta p&aacute;gina de {day} {monthLong}, {year} no {archiveName}.</a>'] 
+		['', '<a href="{archivedURL}">Visite uma vers&atild;o anterior desta p&aacute;gina de {date} no {archiveName}.</a>'] 
 	]);
 
 	// List of archives to try
@@ -60,8 +60,9 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 		const replaceMap = new Map( [ 
 			['archiveName', archive.hasOwnProperty('archiveName') ?  archive.archiveName : ''],
 			['archivedURL', archivedURL],
+			['date', _dateFormatter(date)],
 			['year', date.getFullYear()],
-			['month', date.getMonth()],
+			['month', (date.getMonth()+1)],
 			['monthLong', new Intl.DateTimeFormat(_language, {  month: 'long' }).format(date)],
 			['day', date.getDate()],
 			['hour', date.getHours()],
@@ -133,70 +134,164 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 
 	return {
 
-		// Array of other arrays that have two element each
-		// Example:
-		//   .messages([
-		//         ['pt', '<a href="{archivedURL}">Visite uma versão anterior desta página de {day} {monthLong}, {year} no {archiveName}.</a>'],
-		//         ['en', '<a href="{archivedURL}">Visit an earlier version of this page from {day} {monthLong}, {year} at {archiveName}.</a>'],
-		//      ])
+		/**
+		 * @deprecated Multilanguage support will be discontinued. `message` is the preferred method.
+		 * 
+		 * Adds a list of language-messsage pairs
+		 * 
+		 * @param {Array []} langMessagesMap  Array of other arrays that have two element each
+		 * @return {Object} ```this```
+		 * 
+		 * @example
+		 * ```js
+		 * .messages([
+		 *         ['pt', '<a href="{archivedURL}">Visite uma versão anterior desta página de {day} {monthLong}, {year} no {archiveName}.</a>'],
+		 *         ['en', '<a href="{archivedURL}">Visit an earlier version of this page from {day} {monthLong}, {year} at {archiveName}.</a>'],
+		 *      ])
+		 * ```
+		 */
 		messages : function(langMessagesMap) {
 			_messagesMap = new Map(langMessagesMap);
 			return this;
 		},
 
-		// Force show message on specific language
+		/**
+		 * @deprecated multilanguage support will be discontinued. 
+		 * 
+		 * Force show messages on specific language
+		 * 
+		 * @param {string} language  2-letter code of the language ( ISO 639-1 compliant )
+		 * @return {Object} ```this```
+		 */
 		language : function(language) {
 			_language = language;
 			return this;
 		},
 
-		// Only use a single message for all language.
-		// Example:
-		//   .message('You can view an archived versions on <a href="{archivedURL}">{archivedURL}</a>');
+		/**
+		 * Specify the arquivo404 message
+		 * 
+		 * @param {string} message message to be shown
+		 * @return {Object} ```this```
+		 * 
+		 * @example
+		 * ```js 
+		 * .message('You can view an archived versions on <a href="{archivedURL}">{archivedURL}</a>');
+		 * ```
+		 */
 		message : function(message) {
 			_messagesMap = new Map([ ['', message] ]);
 			return this;
 		},
 
-		// Add a language message
-		// Example:
-		//   .addMessage('pt', 'You can view an archived versions on <a href="{archivedURL}">{archivedURL}</a>');
+		/**
+		 * @deprecated Multilanguage support will be discontinued. `message` is the preferred method.
+		 * 
+		 *  Add a language message
+		 * 
+		 * @param {string} language  2-letter code of the language ( ISO 639-1 compliant )
+		 * @param {string} message message to be shown
+		 * @return {Object} ```this```
+		 * 
+		 * @example
+		 * ```js 
+		 * .addMessage('pt', 'You can view an archived versions on <a href="{archivedURL}">{archivedURL}</a>');
+		 * ```
+		 */
 		addMessage : function(language, message) {
 			_messagesMap.set(language, message);
 			return this;
 		},
 
-		// Id of the element to write the message
+		/**
+		 * Formats a date object into a string.
+		 * @typedef {function(Date): string} DateFormatter
+		 */
+		/**
+		 * Specify how to format the ```date``` tag on the message
+		 * 
+		 * @param {DateFormatter} dateFormatter function that converts a javascript Date object into a string
+		 * @return {Object} ```this```
+		 * 
+		 * @example changing the date format to MM/DD/YYYY
+		 * ```js 
+		 * .setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/')); 
+		 * .message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>');
+		 * ```
+		 */
+		setDateFormatter : function( dateFormatter ){
+			if(typeof dateFormatter == 'function'){
+				_dateFormatter = dateFormatter;
+			}
+			return this;
+		},
+
+
+		/**
+		 * Specify the id of the HTML element that will contain the message
+		 * 
+		 * @param {string} messageElementId 
+		 * @return {Object} ```this```
+		 */
 		messageElementId : function(messageElementId) {
 			_messageElementId = messageElementId;
 			return this;
 		},
 
-		// A prototype with archiveApiUrl, archiveName and timeout or a single URL of the Memento API
-		// Example:
-		//   .addArchive( {timeout: 2000, archiveName: "Arquivo.pt Preprod", archiveApiUrl: "https://preprod.arquivo.pt/wayback/timemap/link/"} )
+		/**
+		 * An object to configure a web archive
+		 * @typedef {Object} ArchiveConfig
+		 * @property {string} archiveApiUrl - URL to the timemap/link/ endpoint of the API.
+		 * @property {string} archiveName - Archive name to be used with the ```archiveName``` tag in the message.
+		 * @property {number} timeout - Timeout for the API request.
+		 * 
+		 */
+		/**
+	 	 * Add an additional web archive compliant with the Memento protocol ( RFC 7089 )
+		 * 
+		 * @param {ArchiveConfig} archive - Object describing the the web archive.
+		 * @return {Object} ```this```
+		 * 
+		 * @example
+		 * ```
+		 * .addArchive( {timeout: 6000, archiveName: "Internet Archive", archiveApiUrl: "http://web.archive.org/web/timemap/link/"} )
+		 * ```
+		 */
 		addArchive : function(archive) {
-			// timeout: 2000, archiveName: "Arquivo.pt", archiveApiUrl
 			const o = archive.hasOwnProperty('archiveApiUrl') ? archive : {'archiveApiUrl' : archive} ;
 			_archives.push(o)
 			return this;
 		},
 
-		// Replace current archive with this one
+		/**
+	 	 * Replace all web archives with a web archive compliant with the Memento protocol ( RFC 7089 )
+		 * 
+		 * @param {ArchiveConfig} archive Object describing the the web archive.
+		 * @return {Object} ```this```
+		 */
 		archive : function(archive) {
 			_archives = [];
 			this.addArchive(archive);
 			return this;
 		},
 
-		// Change url to search on web archives instead of the current page.
+		/**
+	 	 * Change url to search on web archives instead of the current page. 
+		 * 
+		 * @param {string} url - URL to search on web archives like Arquivo.pt
+		 * @return {Object} ```this```
+		 */
 		url : function(url) {
 			_url = url;
-			return this;
+			return this; 
 		},
 
-		// method to be called to start the web archives search.
-		call : function (url) {
+		/**
+		 * Method to be called to start the web archives search.
+		 * 
+		 * @return {Object} ```this```
+		 */
+		call : function () {
 			for ( let i = 0 ; i < _archives.length ; i ++) {
 				const archive = _archives[i];
 				getMementoUsingXMLHttpRequest(archive);
