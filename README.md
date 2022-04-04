@@ -26,6 +26,8 @@ The simplest way to install the arquivo404 script is to include it in the HTML e
 ```js
 <script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
 ```
+Or you can download the javacript file available at https://arquivo.pt/arquivo404.js to your server and link to it.
+
 
 ## Methods to customize arquivo404 search and message
 
