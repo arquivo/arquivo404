@@ -21,12 +21,20 @@ Other web archives that support the [Memento protocol (rfc 7089)](https://datatr
 
 ## One-line installation
 
-The simplest way to install the arquivo404 script is to include it in the HTML element where the message will be presented.
+The simplest way to install the arquivo404 script is to include it in the HTML element where the message will be presented. Here are 2 examples of one-liners that display the Arquivo404 message in english and in portuguese, respectively. 
 
+### EN 
+```js
+<script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>').call();"></script>
+```
+
+### PT
 ```js
 <script type="text/javascript" src="https://arquivo.pt/arquivo404.js" async defer onload="ARQUIVO_NOT_FOUND_404.call();"></script>
 ```
-Or you can download the javacript file available at https://arquivo.pt/arquivo404.js to your web server and change the "src" attribute to its new path.
+
+
+You may download the javacript file available at https://arquivo.pt/arquivo404.js to your web server and change the "src" attribute to its new path.
 
 
 ## Methods to customize arquivo404 search and message
