@@ -13,14 +13,13 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 	var _dateFormatter = (date) => date.toLocaleDateString('en-CA'); // YYYY-MM-DD
 
 	var _messagesMap = new Map([ 
-		['', '<a href="{archivedURL}">Visite uma vers&atild;o anterior desta p&aacute;gina de {date} no {archiveName}.</a>'] 
+		['', '<a href="{archivedURL}">Visite uma vers&atilde;o anterior desta p&aacute;gina de {date} no {archiveName}.</a>'] 
 	]);
 
 	// List of archives to try
 	// timeout in miliseconds
 	var _archives = [
-		{ timeout: 2000, archiveName: "Arquivo.pt", archiveApiUrl: "https://arquivo.pt/wayback/timemap/link/" } , 
-		//{ timeout: 5000, archiveName: "Internet Archive", archiveApiUrl: "https://cors-anywhere.herokuapp.com/http://web.archive.org/web/timemap/link/" }
+		{ timeout: 2000, archiveName: "Arquivo.pt", archiveApiUrl: "https://arquivo.pt/wayback/timemap/link/" } 
 	];
 
 	function handleMessage(message) {
