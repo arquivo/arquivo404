@@ -19,7 +19,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 	// List of archives to try
 	// timeout in miliseconds
 	var _archives = [
-		{ timeout: 2000, archiveName: "Arquivo.pt", archiveApiUrl: "https://arquivo.pt/wayback/timemap/link/" } 
+		{ timeout: 2000, archiveName: "Arquivo.pt", archiveApiUrl: "https://arquivo.pt/arquivo404server/timemap/link/" } 
 	];
 
 	function handleMessage(message) {
