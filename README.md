@@ -11,7 +11,6 @@ Other web archives that support the [Memento protocol (rfc 7089)](https://datatr
 ## Examples of links to broken URLs fixed with arquivo404
 * https://andremourao.com/courses
 * https://www.fccn.pt/SCCN/
-* https://webcurator.ddns.net/?p=134
 * https://www.nau.edu.pt/pt/entidades/administracao-publica/fct/
 * https://ifilnova.pt/pt/pages/nuno-venturinha
 * https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
