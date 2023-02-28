@@ -10,7 +10,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 	var _handled = false;
 	var _messageElementId = null;
 	var _language = navigator.language || navigator.userLanguage;
-	var _dateFormatter = (date) => date.toLocaleDateString('pt-PT'); // YYYY-MM-DD
+	var _dateFormatter = (date) => date.toLocaleDateString('pt-PT'); // DD/MM/YYYY
 
 	var _messagesMap = new Map([ 
 		['', '<a href="{archivedURL}">Visite uma vers&atilde;o anterior desta p&aacute;gina no {archiveName}.</a>'] 
