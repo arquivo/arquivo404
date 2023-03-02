@@ -9,7 +9,6 @@ It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies
 Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
 
 ## Examples of links to broken URLs fixed with arquivo404
-* https://andremourao.com/courses
 * https://www.fccn.pt/SCCN/
 * https://www.nau.edu.pt/pt/entidades/administracao-publica/fct/
 * https://www.b-on.pt/sobre/index.aspx
@@ -17,6 +16,7 @@ Other web archives that support the [Memento protocol (rfc 7089)](https://datatr
 * https://www.cienciavitae.pt/destaques/
 * https://www.cienciavitae.pt/uploads/2018/11/Poster_CI%C3%8ANCIAVITAE.pdf
 * https://ifilnova.pt/pt/pages/nuno-venturinha
+* https://andremourao.com/courses
 * https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
 * https://sobre.arquivo.pt/sobre/publicacoes-1/automatic-identification-and-preservation-of-r-d
 * https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/arquitectura/
