@@ -17,6 +17,7 @@ Other web archives that support the [Memento protocol (rfc 7089)](https://datatr
 * https://www.cienciavitae.pt/uploads/2018/11/Poster_CI%C3%8ANCIAVITAE.pdf
 * https://ifilnova.pt/pt/pages/nuno-venturinha
 * https://andremourao.com/courses
+* https://webcurator.ddns.net/?p=134
 * https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
 * https://sobre.arquivo.pt/sobre/publicacoes-1/automatic-identification-and-preservation-of-r-d
 * https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/arquitectura/
