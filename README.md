@@ -219,8 +219,10 @@ In practice, the web archive server should respond with the HTTP header: `Access
 ### Remove redirects/rewrite rules of URLs to home page 
 If the current website rewrites/redirects URLs that reference missing pages (404 errors) to the home page, the arquivo404 will not work. 
 
-In Wordpress websites, frequently there is a rule to rewrite URLs containing /index.php to /. 
-
+In Wordpress websites, frequently there is a rule to rewrite URLs containing /index.php to /. If you cannot remove this rule, you can try to apply this alternative script to install arquivo404:
+```
+<script type="text/javascript" src=https://arquivo.pt/arquivo404.js async defer onload="ARQUIVO_NOT_FOUND_404.url([ ...(window.location.href.split('/').slice(0,3)), 'index.php', ...(window.location.href.split('/').slice(3)) ].join('/')).call();"></script>
+```
 
 
 
