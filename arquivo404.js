@@ -10,10 +10,13 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 	var _handled = false;
 	var _messageElementId = null;
 	var _language = navigator.language || navigator.userLanguage;
-	var _dateFormatter = (date) => date.toLocaleDateString('en-CA'); // YYYY-MM-DD
+	var _dateFormatter = (date) => [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-'); // YYYY/MM/DD
+    var _getMostRelevantMemento = (mementoList) => mementoList[0] //oldest memento is the most relevant by default
+    var _minDate = null;
+    var _maxDate = null;
 
 	var _messagesMap = new Map([ 
-		['', '<a href="{archivedURL}">Visite uma vers&atilde;o anterior desta p&aacute;gina de {date} no {archiveName}.</a>'] 
+		['', '<a href="{archivedURL}">Visite uma vers&atilde;o anterior desta p&aacute;gina no {archiveName}.</a>'] 
 	]);
 
 	// List of archives to try
@@ -94,11 +97,17 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 	function handleMemento(archive, pageUrl, mementoResponse) {
 		if (!_handled) {
 			var mementoLines = mementoResponse.split(/\r?\n/).filter(function(l){ return l.indexOf('rel="memento"') >= 0});
+            if(!!_minDate){
+                mementoLines = mementoLines.filter(x => getMementoDate(x) >= _minDate)
+            }
+            if(!!_maxDate){
+                mementoLines = mementoLines.filter(x => getMementoDate(x) <= _maxDate)
+            }
 			const linesCount = mementoLines.length;
 			if (linesCount) {
-				const firstMemento = mementoLines[0];
-				const archivedURL = getArchivedURL(firstMemento)
-				const date = getMementoDate(firstMemento)
+				const mostRelevantMemento = _getMostRelevantMemento(mementoLines);
+				const archivedURL = getArchivedURL(mostRelevantMemento)
+				const date = getMementoDate(mostRelevantMemento)
 
 				if (!_handled) {
 					_handled = true;
@@ -144,7 +153,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 		 * @example
 		 * ```js
 		 * .messages([
-		 *         ['pt', '<a href="{archivedURL}">Visite uma versão anterior desta página de {day} {monthLong}, {year} no {archiveName}.</a>'],
+		 *         ['pt', '<a href="{archivedURL}">Visite uma versão anterior desta pÃ¡gina de {day} {monthLong}, {year} no {archiveName}.</a>'],
 		 *         ['en', '<a href="{archivedURL}">Visit an earlier version of this page from {day} {monthLong}, {year} at {archiveName}.</a>'],
 		 *      ])
 		 * ```
@@ -206,6 +215,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 		 * Formats a date object into a string.
 		 * @typedef {function(Date): string} DateFormatter
 		 */
+
 		/**
 		 * Specify how to format the ```date``` tag on the message
 		 * 
@@ -225,6 +235,58 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 			return this;
 		},
 
+        /**
+		 * Specify how to choose which memento to link among all available options returned from the web archive(s). 
+         * By default, the oldest result is used.
+		 * 
+		 * @param {('oldest'|'most-recent')} criterion whether we want to present the oldest or the most recent result
+		 * @return {Object} ```this```
+		 * 
+		 * @example changing to the most recent result
+		 * ```js 
+		 * .setMostRelevantMemento('most-recent')
+		 * ```
+		 */
+		setMostRelevantMemento : function( criterion ){
+            if(criterion === 'oldest' ){
+                _getMostRelevantMemento = (mementoList) => mementoList[0]
+            } else if(criterion === 'most-recent' ){
+                _getMostRelevantMemento = (mementoList) => mementoList[mementoList.length-1]
+            }
+			return this;
+		},
+
+        /**
+		 * Specify the minimum date of archived pages. 
+		 * 
+		 * @param {Date} date The oldest date allowed to be presented
+		 * @return {Object} ```this```
+		 * 
+		 * @example Prevent results earlier than 2010
+		 * ```js 
+		 * .setMinimumDate(new Date("2010-01-01 GMT"))
+		 * ```
+		 */
+		setMinimumDate : function( date ){
+            _minDate = date;
+			return this;
+		},
+
+        /**
+		 * Specify the maximum date of archived pages. 
+		 * 
+		 * @param {Date} date The maximum date allowed to be presented
+		 * @return {Object} ```this```
+		 * 
+		 * @example Prevent results later than 2010
+		 * ```js 
+		 * .setMaximumDate(new Date("2010-01-01 GMT"))
+		 * ```
+		 */
+		setMaximumDate : function( date ){
+            _maxDate = date;
+			return this;
+		},
 
 		/**
 		 * Specify the id of the HTML element that will contain the message
