@@ -70,10 +70,7 @@ Messages can use tags between curly brackets to display the following dynamic in
 | `date` | The date when the content was web-archived. The default format is `YYYY-MM-DD`, but it can be customized using the `setDateFormatter` method. |
 
 ## Usage examples
-<details>
-  <summary><h3> Presenting the message within a specific HTML element </h3></summary>
-
-
+###  Presenting the message within a specific HTML element 
 
 1. Import the arquivo404 script in the header of the soft 404 webpage:
 ```html
@@ -104,10 +101,7 @@ Messages can use tags between curly brackets to display the following dynamic in
 </body>
 ```
 
-</details>
-
-<details>
-  <summary><h3>Customizing the message</h3></summary>
+### Customizing the message
  
 
 The message displayed by the arquivo404 script can be customized using the `message` method:
@@ -122,10 +116,9 @@ The message displayed by the arquivo404 script can be customized using the `mess
 ...
 </body>
 ```
-</details>
 
-<details>
-  <summary><h3>  Getting the most recent memento rather than the oldest one </h3></summary>
+
+###   Getting the most recent memento rather than the oldest one 
 
 By default, Arquivo404 will display the oldest version available among all available versions of the archived page.
 
@@ -141,10 +134,8 @@ This behaviour can be altered to instead display the most recent version:
 ...
 </body>
 ```
-</details>
 
-<details>
-  <summary><h3>Limiting the date range of the retrieved results </h3></summary>
+### Limiting the date range of the retrieved results 
 
 Supose that your website only started in 2010, but the web archive has versions prior to that date because the same domain used to belong so some other entity. 
 
@@ -160,10 +151,8 @@ In cases like these it may be desirable to limit the results to a certain time r
 ...
 </body>
 ```
-</details>
 
-<details>
-  <summary><h3>Specifying a given URL to search in web archives</h3></summary>
+### Specifying a given URL to search in web archives
 
 Some websites redirect broken links to a soft 404 page that loses track of the broken URL. 
 
@@ -181,10 +170,8 @@ If the website could keep track of the broken URL that was requested and inject 
 ...
 </body>
 ```
-</details>
 
-<details>
-  <summary><h3>Customizing date format in the message</h3></summary>
+### Customizing date format in the message
 
 By default, the date is displayed in the `YYYY-MM-DD` format. This can be changed using the `setDateFormatter` method:
 
@@ -203,10 +190,8 @@ By default, the date is displayed in the `YYYY-MM-DD` format. This can be change
 ...
 </body>
 ```
-</details>
 
-<details>
-  <summary><h3>Adding web archives to search for the broken URL</h3></summary>
+### Adding web archives to search for the broken URL
 
 Sometimes a missing page that isn't available in Arquivo.pt may have been preserved by other archives such as the [Internet Archive](https://archive.org/). Arquivo404 supports adding web archives that support the Memento protocol, as long as they have [CORS enabled](#web-archives-must-have-cors-enabled).
 
@@ -224,10 +209,8 @@ Sometimes a missing page that isn't available in Arquivo.pt may have been preser
 ...
 </body>
 ```
-</details>
 
-<details>
-  <summary><h3>Calling versions from older domains of the website</h3></summary>
+### Calling versions from older domains of the website
 
 Supose that your website used to have the domain `old.website.org` but at some point in time it was changed to `new.website.org`. 
 
@@ -246,7 +229,6 @@ If we want Arquivo404 to support both domains we can combine the `url` and `addA
 ```
 
 In the above example, if a user tries to visit `new.website.org/some/endpoint` arquivo404 will search Arquivo.pt for versions of both `old.website.org/some/endpoint` and `new.website.org/some/endpoint`.
-</details>
 
 ### A complete example
 
