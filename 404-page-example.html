@@ -24,6 +24,15 @@
 				// Set the message in English
 				.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')
 
+				// Prevent results earlier than 2010
+				.setMinimumDate(new Date("2010-01-01 GMT"))
+
+				// Prevent results later than 2020
+				.setMaximumDate(new Date("2020-01-01 GMT"))
+
+				// Prioritize recent mementos rather than older ones
+				.setMostRelevantMemento('most-recent')
+
 				// Set the date format to MM/DD/YYYY
 				.setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/'))
 
