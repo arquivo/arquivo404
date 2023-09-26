@@ -51,9 +51,9 @@ The Arquivo404 script exports a globally scoped variable: `ARQUIVO_NOT_FOUND_404
 | -- | -- | -- | -- |
 | messageElementId | Sets the id of the HTML element to write the message. If none is given, a new `<div>` will be created for this purpose. It will be appended to the parent of the `<script>` element that was used to load this script. | messageElementId : `string` | `ARQUIVO_NOT_FOUND_404`<br>**`.messageElementId('messageDiv')`**<br>`.call();` |
 | message | Sets the message to be displayed by arquivo404. | message : `string` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')`**<br>`.call();` |
-| setMinimumDate | Specifies the oldest date allowed to be presented. | date : `Date` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setMinimumDate(new Date("2010-01-01 GMT"))`<br>**`.call();`|
-| setMaximumDate | Specifies the most recent date allowed to be presented. | date : `Date` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setMaximumDate(new Date("2010-01-01 GMT"))`<br>**`.call();`|
-| setMostRelevantMemento | Specifies whether to pick the oldest or the most recent memento retrieved from the web archive. By default it picks the oldest one. | criterion : <code>'oldest' &verbar; 'most-recent'</code> | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setMostRelevantMemento('most-recent')`<br>**`.call();`|
+| setMinimumDate | Specifies the oldest date allowed to be retrieved (optional) | minDate : `Date` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setMinimumDate(new Date("2010-01-30 GMT"))`<br>**`.call();`|
+| setMaximumDate | Specifies the most recent date allowed to be retrieved (optional). | maxDate : `Date` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setMaximumDate(new Date("2015-01-30 GMT"))`<br>**`.call();`|
+| setMostRelevantMemento | Specifies whether to pick the oldest or the most recent memento retrieved from the web archive within the minimum and maximum dates (if defined). By default it picks the oldest one. | criterion : <code>'oldest' &verbar; 'most-recent'</code> | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setMostRelevantMemento('most-recent')`<br>**`.call();`|
 | setDateFormatter | Configures date format using the `date` tag on messages. The default formatting is `YYYY-MM-DD`. `setDateFormatter`'s argument is a function that receives a single javascript `Date` object and returns a `string`.   | dateFormatter : `function` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/')) `**<br>`.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')`<br>`.call();` |
 | addArchive | Adds a web archive compliant with the Memento API protocol to search for web-archived versions of the broken URL. By default, arquivo404 uses the Arquivo.pt web archive. The argument of this function should have 3 properties: <br> &nbsp;&nbsp;```archiveApiUrl``` - URL to the timemap/link/ endpoint of the API. <br> &nbsp;&nbsp;```archiveName``` - Archive name to be used with the ```archiveName``` tag in the message. <br> &nbsp;&nbsp;```timeout``` - Timeout for the API request. | { <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveApiUrl: `string`, <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveName: `string`,<br>&nbsp;&nbsp;&nbsp;&nbsp;timeout: `number` <br>} | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.addArchive({`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveApiUrl:'http://web.archive.org/web/timemap/link/',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveName: 'Internet Archive',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`timeout: 2000`<br>`})`<br>**`.call();`|
 | url | Specifies a given URL to search in web archives. If this method isn't used, arquivo404 will search for the URL in `window.location.href`. | url : `string` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.url('http://www.fccn.pt/SCCN/')`<br>**`.call();`|
@@ -118,7 +118,7 @@ The message displayed by the arquivo404 script can be customized using the `mess
 ```
 
 
-###   Getting the most recent memento rather than the oldest one 
+###   Getting the most recent memento, instead of the oldest (default)
 
 By default, Arquivo404 will display the oldest version available among all available versions of the archived page.
 
@@ -137,9 +137,10 @@ This behaviour can be altered to instead display the most recent version:
 
 ### Limiting the date range of the retrieved results 
 
-Supose that your website only started in 2010, but the web archive has versions prior to that date because the same domain used to belong so some other entity. 
+Suppose that the domain of your website belongs to you since 1 January 2010, and to other people before.
 
-In cases like these it may be desirable to limit the results to a certain time range. The functions `setMinimumDate` and `setMaximumDate` allow for this functioinality: 
+Thus, you want to limit the retrieved results to the time range when website began belonging to you. 
+The function `setMinimumDate` supports this. 
 
 ```html
 <script type="text/javascript">
@@ -154,11 +155,11 @@ In cases like these it may be desirable to limit the results to a certain time r
 
 ### Specifying a given URL to search in web archives
 
-Some websites redirect broken links to a soft 404 page that loses track of the broken URL. 
+Some websites redirect broken links to a soft 404 page that loses track of the _broken URL_ (URL in `window.location.href`). 
 
-In these cases, by default the arquivo404 script would search for web-archived versions of the soft 404 page, instead of the broken URL.
+In these cases, by default the arquivo404 script would search for web-archived versions of the soft 404 error page, instead of the _broken URL_.
 
-If the website could keep track of the broken URL that was requested and inject it in its soft 404 page using the ```url``` method, this issue would be solved:
+If the website kept state of the broken URL `originalUrl` that was requested, it can inject it in its soft 404 page using the ```url``` method to solve this problem:
 
 ```html
 <script type="text/javascript">
@@ -193,7 +194,8 @@ By default, the date is displayed in the `YYYY-MM-DD` format. This can be change
 
 ### Adding web archives to search for the broken URL
 
-Sometimes a missing page that isn't available in Arquivo.pt may have been preserved by other archives such as the [Internet Archive](https://archive.org/). Arquivo404 supports adding web archives that support the Memento protocol, as long as they have [CORS enabled](#web-archives-must-have-cors-enabled).
+Sometimes a broken URL isn't available in Arquivo.pt but it was preserved by other archives such as the [Internet Archive](https://archive.org/). 
+Arquivo404 supports adding web archives that support the Memento protocol, as long as they have [CORS enabled](#web-archives-must-have-cors-enabled).
 
 ```html
 <script type="text/javascript">
@@ -212,9 +214,9 @@ Sometimes a missing page that isn't available in Arquivo.pt may have been preser
 
 ### Calling versions from older domains of the website
 
-Supose that your website used to have the domain `old.website.org` but at some point in time it was changed to `new.website.org`. 
+Suppose that your website used to have the domain `old.website.org` but at some point in time it was changed to `new.website.org`. 
 
-If we want Arquivo404 to support both domains we can combine the `url` and `addArchive` methods as follows:
+If we want arquivo404 to search for broken URLs across both domains, we can combine the `url` and `addArchive` methods as follows:
 
 ```html
 <script type="text/javascript">
@@ -228,7 +230,7 @@ If we want Arquivo404 to support both domains we can combine the `url` and `addA
 </body>
 ```
 
-In the above example, if a user tries to visit `new.website.org/some/endpoint` arquivo404 will search Arquivo.pt for versions of both `old.website.org/some/endpoint` and `new.website.org/some/endpoint`.
+In the above example, if a user tries to visit `new.website.org/pathname/` arquivo404 will search Arquivo.pt for mementos for both `old.website.org/pathname/` and `new.website.org/pathname/`.
 
 ### A complete example
 
