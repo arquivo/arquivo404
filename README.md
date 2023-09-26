@@ -8,6 +8,10 @@ It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies
 
 Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
 
+Learn more at: 
+- https://arquivo.pt/arquivo404en
+- https://arquivo.pt/arquivo404 (in Portuguese)
+
 ## Examples of links to broken URLs fixed with arquivo404
 * https://www.fccn.pt/SCCN/
 * https://www.nau.edu.pt/pt/entidades/administracao-publica/fct/
