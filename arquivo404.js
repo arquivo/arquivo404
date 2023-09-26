@@ -259,7 +259,7 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
         /**
 		 * Specify the minimum date of archived pages. 
 		 * 
-		 * @param {Date} date The oldest date allowed to be presented
+		 * @param {Date} minDate The oldest date allowed to be presented
 		 * @return {Object} ```this```
 		 * 
 		 * @example Prevent results earlier than 2010
@@ -267,15 +267,15 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 		 * .setMinimumDate(new Date("2010-01-01 GMT"))
 		 * ```
 		 */
-		setMinimumDate : function( date ){
-            _minDate = date;
+		setMinimumDate : function( minDate ){
+            _minDate = minDate;
 			return this;
 		},
 
         /**
 		 * Specify the maximum date of archived pages. 
 		 * 
-		 * @param {Date} date The maximum date allowed to be presented
+		 * @param {Date} maxDate The maximum date allowed to be presented
 		 * @return {Object} ```this```
 		 * 
 		 * @example Prevent results later than 2010
@@ -283,8 +283,8 @@ var ARQUIVO_NOT_FOUND_404 = ARQUIVO_NOT_FOUND_404 || (function(){
 		 * .setMaximumDate(new Date("2010-01-01 GMT"))
 		 * ```
 		 */
-		setMaximumDate : function( date ){
-            _maxDate = date;
+		setMaximumDate : function( maxDate ){
+            _maxDate = maxDate;
 			return this;
 		},
 
