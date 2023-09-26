@@ -118,7 +118,7 @@ The message displayed by the arquivo404 script can be customized using the `mess
 ```
 
 
-### Specifying a given URL to search in web archives
+### Specifying URL to search in web archives
 
 Some websites redirect broken links to a soft 404 page that looses track of the broken URL. 
 
