@@ -212,20 +212,29 @@ Sometimes a missing page that isn't available in Arquivo.pt may have been preser
 ...
 </body>
 ```
+### Calling versions from older domains of the website
 
+Supose that your website used to have the domain `old.website.org` but at some point in time it was changed to `new.website.org`. 
+
+If we want Arquivo404 to support both domains we can combine the `url` and `addArchive` methods as follows:
+
+```html
+<script type="text/javascript">
+    ARQUIVO_NOT_FOUND_404
+	.url(window.location.pathname + window.location.search)
+	.addArchive( {timeout: 2000, archiveName: "Arquivo.pt", archiveApiUrl: "https://arquivo.pt/arquivo404server/timemap/link/https://new.website.org"} ) 
+	.addArchive( {timeout: 2000, archiveName: "Arquivo.pt", archiveApiUrl: "https://arquivo.pt/arquivo404server/timemap/link/https://old.website.org"} )
+	.call();    
+</script>
+...
+</body>
+```
+
+In the above example, if a user tries to visit `new.website.org/some/endpoint` arquivo404 will search Arquivo.pt for versions of both `old.website.org/some/endpoint` and `new.website.org/some/endpoint`.
 
 ### A complete example
 
 A functional example using all of the possible configurations is available on [404-page-example.html](404-page-example.html)
-
-
-<https://arquivo.pt/wayback/timemap/link/http://www.fccn.pt/rccn/rccn_aup.html>; rel="self"; type="application/link-format"; from="Sun, 15 Feb 1998 12:19:02 GMT",
-<https://arquivo.pt/wayback/http://www.fccn.pt/rccn/rccn_aup.html>; rel="timegate",
-<http://www.fccn.pt/rccn/rccn_aup.html>; rel="original",
-<https://arquivo.pt/wayback/19980215121902mp_/http://www.fccn.pt:80/rccn/rccn_aup.html>; rel="memento"; datetime="Sun, 15 Feb 1998 12:19:02 GMT"; collection="$root",
-<https://arquivo.pt/wayback/20041102014333mp_/http://www.fccn.pt:80/rccn/rccn_aup.html>; rel="memento"; datetime="Tue, 02 Nov 2004 01:43:33 GMT"; collection="$root",
-<https://arquivo.pt/wayback/20191117212931mp_/http://www.fccn.pt/rccn/rccn_aup.html>; rel="memento"; datetime="Sun, 17 Nov 2019 21:29:31 GMT"; collection="$root",
-<https://arquivo.pt/wayback/20191117212936mp_/https://www.fccn.pt/rccn/rccn_aup.html>; rel="memento"; datetime="Sun, 17 Nov 2019 21:29:36 GMT"; collection="$root"
 
 ## How to test arquivo404?
 
