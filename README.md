@@ -9,10 +9,15 @@ It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies
 Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
 
 ## Examples of links to broken URLs fixed with arquivo404
-* https://andremourao.com/courses
 * https://www.fccn.pt/SCCN/
-* https://webcurator.ddns.net/?p=134
 * https://www.nau.edu.pt/pt/entidades/administracao-publica/fct/
+* https://www.b-on.pt/sobre/index.aspx?area_id=3
+* https://www.cert.rcts.pt/pt/sobre/filiacao/
+* https://www.cienciavitae.pt/destaques/
+* https://www.cienciavitae.pt/uploads/2018/11/Poster_CI%C3%8ANCIAVITAE.pdf
+* https://ifilnova.pt/pt/pages/nuno-venturinha
+* https://andremourao.com/courses
+* https://webcurator.ddns.net/?p=134
 * https://sobre.arquivo.pt/sobre-o-arquivo/sobre-o-arquivo/objectivos-do-arquivo-da-web-portuguesa
 * https://sobre.arquivo.pt/sobre/publicacoes-1/automatic-identification-and-preservation-of-r-d
 * https://sobre.arquivo.pt/pt/acerca/funcionamento-do-arquivo-pt/arquitectura/
@@ -22,7 +27,7 @@ Other web archives that support the [Memento protocol (rfc 7089)](https://datatr
 
 ## One-line installation
 
-The simplest way to install the arquivo404 script is to include it in the HTML element where the message will be presented. Here are 2 examples of one-liners that display the Arquivo404 message in english and in portuguese, respectively. 
+The simplest way to install the arquivo404 script is to include it in the HTML element where the message will be presented. Here are 2 examples of one-liners that display the Arquivo404 message in English and in Portuguese, respectively. 
 
 ### EN 
 ```js
@@ -172,14 +177,56 @@ Sometimes a missing page that isn't available in Arquivo.pt may have been preser
 </body>
 ```
 
-#### Web Archives must have CORS enabled
-
-The arquivo404 javascript requires that the Memento API has an [open CORS policy](https://www.w3.org/wiki/CORS_Enabled).
-In practice, the web archive server should respond with the HTTP header: `Access-Control-Allow-Origin: *`
-
 
 ### A complete example
 
 A functional example using all of the possible configurations is available on [404-page-example.html](404-page-example.html)
+
+
+<https://arquivo.pt/wayback/timemap/link/http://www.fccn.pt/rccn/rccn_aup.html>; rel="self"; type="application/link-format"; from="Sun, 15 Feb 1998 12:19:02 GMT",
+<https://arquivo.pt/wayback/http://www.fccn.pt/rccn/rccn_aup.html>; rel="timegate",
+<http://www.fccn.pt/rccn/rccn_aup.html>; rel="original",
+<https://arquivo.pt/wayback/19980215121902mp_/http://www.fccn.pt:80/rccn/rccn_aup.html>; rel="memento"; datetime="Sun, 15 Feb 1998 12:19:02 GMT"; collection="$root",
+<https://arquivo.pt/wayback/20041102014333mp_/http://www.fccn.pt:80/rccn/rccn_aup.html>; rel="memento"; datetime="Tue, 02 Nov 2004 01:43:33 GMT"; collection="$root",
+<https://arquivo.pt/wayback/20191117212931mp_/http://www.fccn.pt/rccn/rccn_aup.html>; rel="memento"; datetime="Sun, 17 Nov 2019 21:29:31 GMT"; collection="$root",
+<https://arquivo.pt/wayback/20191117212936mp_/https://www.fccn.pt/rccn/rccn_aup.html>; rel="memento"; datetime="Sun, 17 Nov 2019 21:29:36 GMT"; collection="$root"
+
+## How to test arquivo404?
+
+### If your website is new
+
+1. [Suggest your website](https://arquivo.pt/suggest) to start being automatically web-archived
+2. Publish a test page on your website and write down its URL
+3. [SavePageNow the test page](https://arquivo.pt/savepagenow)
+4. Wait 48 hours
+5. Remove the test page from your website to originate a 404 error
+6. Try to open the URL of the test page and check if the arquivo404 message appears. If it does not appear, [contact us](https://arquivo.pt/contact).
+
+### If your website is already being preserved by Arquivo.pt
+
+1. [Search for your website in Arquivo.pt](https://arquivo.pt/?l=en)
+2. Choose one of its old versions
+3. Browse until you find a web page that no longer exists on your current website
+4. Click on its original URL displayed on the replay top bar
+![image](https://user-images.githubusercontent.com/13120352/225381986-de74999f-4955-40f9-adbc-3d165769ec90.png)
+5. Check if the arquivo404 appears. If it does not appear, [contact us](https://arquivo.pt/contact).
+
+## Troubleshooting
+### Web Archives must have CORS enabled
+The arquivo404 JavaScript requires that the Memento API has an [open CORS policy](https://www.w3.org/wiki/CORS_Enabled).
+In practice, the web archive server should respond with the HTTP header: `Access-Control-Allow-Origin: *`
+
+### Remove redirects/rewrite rules of URLs to home page 
+If the current website rewrites/redirects URLs that reference missing pages (404 errors) to the home page, the arquivo404 will not work. 
+
+In Wordpress websites, frequently there is a rule to rewrite URLs containing /index.php to /. If you cannot remove this rule, you can try to apply this alternative script to install arquivo404:
+```
+<script type="text/javascript" src=https://arquivo.pt/arquivo404.js async defer onload="ARQUIVO_NOT_FOUND_404.url([ ...(window.location.href.split('/').slice(0,3)), 'index.php', ...(window.location.href.split('/').slice(3)) ].join('/')).call();"></script>
+```
+
+
+
+
+
 
 
