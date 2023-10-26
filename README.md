@@ -2,11 +2,15 @@
 
 Arquivo404 automatically fixes links to broken URLs.
 
-If a broken URL on a given website was web-archived by [Arquivo.pt](https://arquivo.pt/?l=en), the arquivo404 script will generate a customizable message containing a link to its oldest web-archived version (memento). If the URL was not web-archived, then no message is presented.
+If a broken URL on a given website was web-archived by [Arquivo.pt](https://arquivo.pt/?l=en), the arquivo404 script will generate a customizable message containing a link to its web-archived version (memento). By default the oldest memento. If the URL was not web-archived, then the message is not presented.
 
-It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies/wiki/Memento--API) to search for the oldest web-archived version of the broken URL. 
+It uses the [Arquivo.pt Memento API](https://github.com/arquivo/pwa-technologies/wiki/Memento--API) to search for web-archived versions of the broken URL. 
 
 Other web archives that support the [Memento protocol (rfc 7089)](https://datatracker.ietf.org/doc/html/rfc7089) can be added.
+
+Learn more at: 
+- https://arquivo.pt/arquivo404en
+- https://arquivo.pt/arquivo404 (in Portuguese)
 
 ## Examples of links to broken URLs fixed with arquivo404
 * https://www.fccn.pt/SCCN/
@@ -51,6 +55,9 @@ The Arquivo404 script exports a globally scoped variable: `ARQUIVO_NOT_FOUND_404
 | -- | -- | -- | -- |
 | messageElementId | Sets the id of the HTML element to write the message. If none is given, a new `<div>` will be created for this purpose. It will be appended to the parent of the `<script>` element that was used to load this script. | messageElementId : `string` | `ARQUIVO_NOT_FOUND_404`<br>**`.messageElementId('messageDiv')`**<br>`.call();` |
 | message | Sets the message to be displayed by arquivo404. | message : `string` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')`**<br>`.call();` |
+| setMinimumDate | Specifies the oldest date allowed to be retrieved (optional) | minDate : `Date` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setMinimumDate(new Date("2010-01-30 GMT"))`<br>**`.call();`|
+| setMaximumDate | Specifies the most recent date allowed to be retrieved (optional). | maxDate : `Date` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setMaximumDate(new Date("2015-01-30 GMT"))`<br>**`.call();`|
+| setMostRelevantMemento | Specifies whether to pick the oldest or the most recent memento retrieved from the web archive within the minimum and maximum dates (if defined). By default it picks the oldest one. | criterion : <code>'oldest' &verbar; 'most-recent'</code> | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setMostRelevantMemento('most-recent')`<br>**`.call();`|
 | setDateFormatter | Configures date format using the `date` tag on messages. The default formatting is `YYYY-MM-DD`. `setDateFormatter`'s argument is a function that receives a single javascript `Date` object and returns a `string`.   | dateFormatter : `function` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/')) `**<br>`.message('<a href="{archivedURL}">View an archived version of the page from {date} at {archiveName}</a>')`<br>`.call();` |
 | addArchive | Adds a web archive compliant with the Memento API protocol to search for web-archived versions of the broken URL. By default, arquivo404 uses the Arquivo.pt web archive. The argument of this function should have 3 properties: <br> &nbsp;&nbsp;```archiveApiUrl``` - URL to the timemap/link/ endpoint of the API. <br> &nbsp;&nbsp;```archiveName``` - Archive name to be used with the ```archiveName``` tag in the message. <br> &nbsp;&nbsp;```timeout``` - Timeout for the API request. | { <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveApiUrl: `string`, <br>&nbsp;&nbsp;&nbsp;&nbsp;archiveName: `string`,<br>&nbsp;&nbsp;&nbsp;&nbsp;timeout: `number` <br>} | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.addArchive({`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveApiUrl:'http://web.archive.org/web/timemap/link/',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`archiveName: 'Internet Archive',`<br>&nbsp;&nbsp;&nbsp;&nbsp;`timeout: 2000`<br>`})`<br>**`.call();`|
 | url | Specifies a given URL to search in web archives. If this method isn't used, arquivo404 will search for the URL in `window.location.href`. | url : `string` | `ARQUIVO_NOT_FOUND_404`<br>`.messageElementId('messageDiv')`<br>**`.url('http://www.fccn.pt/SCCN/')`<br>**`.call();`|
@@ -67,9 +74,7 @@ Messages can use tags between curly brackets to display the following dynamic in
 | `date` | The date when the content was web-archived. The default format is `YYYY-MM-DD`, but it can be customized using the `setDateFormatter` method. |
 
 ## Usage examples
-
-### Presenting the message within a specific HTML element
-
+###  Presenting the message within a specific HTML element 
 
 1. Import the arquivo404 script in the header of the soft 404 webpage:
 ```html
@@ -100,9 +105,8 @@ Messages can use tags between curly brackets to display the following dynamic in
 </body>
 ```
 
-
-
-### Customizing the message 
+### Customizing the message
+ 
 
 The message displayed by the arquivo404 script can be customized using the `message` method:
 
@@ -118,13 +122,48 @@ The message displayed by the arquivo404 script can be customized using the `mess
 ```
 
 
-### Specifying URL to search in web archives
+###   Getting the most recent memento, instead of the oldest (default)
 
-Some websites redirect broken links to a soft 404 page that looses track of the broken URL. 
+By default, Arquivo404 will display the oldest version available among all available versions of the archived page.
 
-In these cases, by default the arquivo404 script would search for web-archived versions of the soft 404 page, instead of the broken URL.
+This behaviour can be altered to instead display the most recent version:
 
-If the website could keep track of the broken URL that was requested and inject it in its soft 404 page using the ```url``` method, this issue would be solved:
+```html
+<script type="text/javascript">
+    ARQUIVO_NOT_FOUND_404
+      .messageElementId('messageDiv')
+      .setMostRelevantMemento('most-recent')
+      .call();
+</script>
+...
+</body>
+```
+
+### Limiting the date range of the retrieved results 
+
+Suppose that the domain of your website belongs to you since 1 January 2010, and to other people before.
+
+Thus, you want to limit the retrieved results to the time range when website began belonging to you. 
+The function `setMinimumDate` supports this. 
+
+```html
+<script type="text/javascript">
+    ARQUIVO_NOT_FOUND_404
+      .messageElementId('messageDiv')
+      .setMinimumDate(new Date("2010-01-01 GMT")) 
+      .call();
+</script>
+...
+</body>
+```
+
+### Specifying a given URL to search in web archives
+
+Some websites redirect broken links to a soft 404 page that loses track of the _broken URL_ (URL in `window.location.href`). 
+
+In these cases, by default the arquivo404 script would search for web-archived versions of the soft 404 error page, instead of the _broken URL_.
+
+If the website kept state of the broken URL `originalUrl` that was requested, it can inject it in its soft 404 page using the ```url``` method to solve this problem:
 
 ```html
 <script type="text/javascript">
@@ -159,8 +198,8 @@ By default, the date is displayed in the `YYYY-MM-DD` format. This can be change
 
 ### Adding web archives to search for the broken URL
 
-
-Sometimes a missing page that isn't available in Arquivo.pt may have been preserved by other archives such as the [Internet Archive](https://archive.org/). Arquivo404 supports adding web archives that support the Memento protocol.
+Sometimes a broken URL isn't available in Arquivo.pt but it was preserved by other archives such as the [Internet Archive](https://archive.org/). 
+Arquivo404 supports adding web archives that support the Memento protocol, as long as they have [CORS enabled](#web-archives-must-have-cors-enabled).
 
 ```html
 <script type="text/javascript">
@@ -177,19 +216,29 @@ Sometimes a missing page that isn't available in Arquivo.pt may have been preser
 </body>
 ```
 
+### Calling versions from older domains of the website
+
+Suppose that your website used to have the domain `old.website.org` but at some point in time it was changed to `new.website.org`. 
+
+If we want arquivo404 to search for broken URLs across both domains, we can combine the `url` and `addArchive` methods as follows:
+
+```html
+<script type="text/javascript">
+    ARQUIVO_NOT_FOUND_404
+	.url(window.location.pathname + window.location.search)
+	.addArchive( {timeout: 2000, archiveName: "Arquivo.pt", archiveApiUrl: "https://arquivo.pt/arquivo404server/timemap/link/https://new.website.org"} ) 
+	.addArchive( {timeout: 2000, archiveName: "Arquivo.pt", archiveApiUrl: "https://arquivo.pt/arquivo404server/timemap/link/https://old.website.org"} )
+	.call();    
+</script>
+...
+</body>
+```
+
+In the above example, if a user tries to visit `new.website.org/pathname/` arquivo404 will search Arquivo.pt for mementos for both `old.website.org/pathname/` and `new.website.org/pathname/`.
 
 ### A complete example
 
 A functional example using all of the possible configurations is available on [404-page-example.html](404-page-example.html)
-
-
-<https://arquivo.pt/wayback/timemap/link/http://www.fccn.pt/rccn/rccn_aup.html>; rel="self"; type="application/link-format"; from="Sun, 15 Feb 1998 12:19:02 GMT",
-<https://arquivo.pt/wayback/http://www.fccn.pt/rccn/rccn_aup.html>; rel="timegate",
-<http://www.fccn.pt/rccn/rccn_aup.html>; rel="original",
-<https://arquivo.pt/wayback/19980215121902mp_/http://www.fccn.pt:80/rccn/rccn_aup.html>; rel="memento"; datetime="Sun, 15 Feb 1998 12:19:02 GMT"; collection="$root",
-<https://arquivo.pt/wayback/20041102014333mp_/http://www.fccn.pt:80/rccn/rccn_aup.html>; rel="memento"; datetime="Tue, 02 Nov 2004 01:43:33 GMT"; collection="$root",
-<https://arquivo.pt/wayback/20191117212931mp_/http://www.fccn.pt/rccn/rccn_aup.html>; rel="memento"; datetime="Sun, 17 Nov 2019 21:29:31 GMT"; collection="$root",
-<https://arquivo.pt/wayback/20191117212936mp_/https://www.fccn.pt/rccn/rccn_aup.html>; rel="memento"; datetime="Sun, 17 Nov 2019 21:29:36 GMT"; collection="$root"
 
 ## How to test arquivo404?
 
