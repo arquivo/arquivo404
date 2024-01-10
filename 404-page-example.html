@@ -37,7 +37,7 @@
 				.setDateFormatter(date => [date.getMonth()+1, date.getDate() ,date.getFullYear()].join('/'))
 
 				// Add the Internet Archive to the list of Memento-compliant web archives to search
-				.addArchive( {timeout: 6000, archiveName: "Internet Archive", archiveApiUrl: "http://web.archive.org/web/timemap/link/"} )
+				.addArchive( {timeout: 6000, archiveName: "Internet Archive", archiveApiUrl: "https://web.archive.org/web/timemap/link/"} )
 				
 				// Run the script
 				.call();
