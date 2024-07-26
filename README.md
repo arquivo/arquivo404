@@ -13,7 +13,7 @@ Learn more at:
 - https://arquivo.pt/arquivo404 (in Portuguese)
 
 ## Examples of links to broken URLs fixed with arquivo404
-* https://www.fct.pt/noticias/index.phtml.pt?id=595&/2020/10/Concurso_AI_4_COVID-19_selecionou_12_projetos
+* https://www.fct.pt/apoios/projectos/
 * https://www.fccn.pt/SCCN/
 * https://www.nau.edu.pt/pt/entidades/administracao-publica/fct/
 * https://www.b-on.pt/sobre/index.aspx?area_id=3
